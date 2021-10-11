@@ -1,4 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
+import 'package:get/get.dart';
+import 'dart:io';
+import 'package:path_provider/path_provider.dart';
+import 'dart:convert';
+import 'package:wallet/State/Controller.dart';
 
 class HomePage extends StatelessWidget {
   @override
@@ -13,7 +19,20 @@ class homePage extends StatefulWidget {
 }
 
 class _homePageState extends State<homePage> {
+  final controller = Get.put(Controller());
+
   @override
+  void initState() {
+    super.initState();
+    // TODO: implement initState
+
+    if (controller.nameUser == '') {
+      print('inicio');
+      SchedulerBinding.instance
+          .addPostFrameCallback((_) => _exibirDialogo(context, controller));
+    }
+  }
+
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Colors.white,
@@ -220,4 +239,34 @@ class _homePageState extends State<homePage> {
       ),
     );
   }
+}
+
+void _exibirDialogo(context, controller) {
+  final textController = TextEditingController();
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      // retorna um objeto do tipo Dialog
+      return AlertDialog(
+        title:
+            new Text("Me informe o nome pelo qual você quer ser chamado. :)"),
+        content: TextField(
+          controller: textController,
+        ),
+        actions: [
+          TextButton(
+            style: ButtonStyle(
+              foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
+              backgroundColor: MaterialStateProperty.all(Colors.blue),
+            ),
+            onPressed: () {
+              controller.setNameUser(textController.text);
+              Navigator.pop(context, true);
+            },
+            child: Text('Continuar'),
+          )
+        ],
+      );
+    },
+  );
 }

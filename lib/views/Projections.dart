@@ -13,7 +13,7 @@ class _projections extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: Container(),); 
+    return Scaffold(body: Center(child: Text("Função em desenvolvimento. Desculpe pelo transtorno")),); 
     
   }
 }

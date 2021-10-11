@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:wallet/State/Controller.dart';
 
 class Sidebar extends StatelessWidget {
   final component;
@@ -27,6 +29,8 @@ class _sidebarState extends State<sidebar> with TickerProviderStateMixin {
         AnimationController(duration: Duration(milliseconds: 200), vsync: this);
     super.initState();
   }
+
+  final controller = Get.put(Controller());
 
   @override
   Widget build(BuildContext context) {
@@ -68,11 +72,14 @@ class _sidebarState extends State<sidebar> with TickerProviderStateMixin {
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(
-                                "Carol Johnson",
-                                style: TextStyle(
-                                    fontSize: 19, fontWeight: FontWeight.w700),
-                              ),
+                              GetBuilder<Controller>(
+                                builder: (_) => Text(
+                                  controller.nameUser,
+                                  style: TextStyle(
+                                      fontSize: 19,
+                                      fontWeight: FontWeight.w700),
+                                ),
+                              )
                             ],
                           )
                         ],
@@ -87,13 +94,17 @@ class _sidebarState extends State<sidebar> with TickerProviderStateMixin {
                   children: [
                     InkWell(
                       onTap: () => {Navigator.pushNamed(context, '/homePage')},
-                      child: navigatorTitle("Home", ModalRoute.of(context).settings.name == '/homePage'),
+                      child: navigatorTitle("Home",
+                          ModalRoute.of(context).settings.name == '/homePage'),
                     ),
                     InkWell(
                       onTap: () {
                         Navigator.pushNamed(context, '/projections');
                       },
-                      child: navigatorTitle("Projeções", ModalRoute.of(context).settings.name == '/projections'),
+                      child: navigatorTitle(
+                          "Projeções",
+                          ModalRoute.of(context).settings.name ==
+                              '/projections'),
                     )
                   ],
                 ),
