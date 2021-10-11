@@ -90,7 +90,6 @@ class _homeWithSidebarState extends State<homeWithSidebar> with TickerProviderSt
                     navigatorTitle("Transactions", false),
                     navigatorTitle("Stats", false),
                     navigatorTitle("Settings", false),
-                    navigatorTitle("Help", false),
                   ],
                 ),
               ),
