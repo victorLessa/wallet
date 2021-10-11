@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:wallet/routes/paths.dart';
 import 'HomePage.dart';
-import 'HomeWithSidebar.dart';
+import 'Sidebar.dart';
 void main() {
   runApp(MyApp());
 }
@@ -12,9 +13,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: MyHomePage(),
-      routes: {
-        '/homePage' : (context)=>HomeWithSidebar(),
-      },
+      routes: RoutePaths().paths(),
     );
   }
 }
