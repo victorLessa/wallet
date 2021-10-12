@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:wallet/State/Controller.dart';
+import 'package:wallet/components/showDialog.dart';
 
 class Sidebar extends StatelessWidget {
   final component;
@@ -74,13 +75,30 @@ class _sidebarState extends State<sidebar> with TickerProviderStateMixin {
                             children: [
                               GetBuilder<Controller>(
                                 builder: (_) => Text(
-                                  controller.nameUser,
+                                  controller.username,
                                   style: TextStyle(
                                       fontSize: 19,
                                       fontWeight: FontWeight.w700),
                                 ),
-                              )
+                              ),
                             ],
+                          ),
+                          InkWell(
+                            onTap: () {
+                              exibirDialogo(context, controller);
+                            },
+                            child: Padding(
+                                padding: EdgeInsets.only(bottom: 15.0),
+                                child: CircleAvatar(
+                                  maxRadius: 9.0,
+                                  backgroundColor: Colors.black26,
+                                  child: Icon(
+                                    Icons.edit,
+                                    color: Colors.white,
+                                    size: 10.0,
+                                    semanticLabel: 'Editar seu nome.',
+                                  ),
+                                )),
                           )
                         ],
                       ),

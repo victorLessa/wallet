@@ -1,10 +1,12 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:get/get.dart';
-import 'dart:io';
 import 'package:path_provider/path_provider.dart';
-import 'dart:convert';
 import 'package:wallet/State/Controller.dart';
+import 'package:wallet/components/showDialog.dart';
 
 class HomePage extends StatelessWidget {
   @override
@@ -26,11 +28,20 @@ class _homePageState extends State<homePage> {
     super.initState();
     // TODO: implement initState
 
-    if (controller.nameUser == '') {
-      print('inicio');
-      SchedulerBinding.instance
-          .addPostFrameCallback((_) => _exibirDialogo(context, controller));
-    }
+    getApplicationDocumentsDirectory().then((Directory directory) {
+      controller.dir = directory;
+      controller.jsonFile =
+          new File(controller.dir.path + "/" + controller.fileName);
+      controller.fileExists = controller.jsonFile.existsSync();
+      if (controller.fileExists) {
+        var saveUser = jsonDecode(controller.jsonFile.readAsStringSync());
+        controller.username = saveUser["username"];
+      } else {
+        controller.createFile({});
+        SchedulerBinding.instance
+            .addPostFrameCallback((_) => exibirDialogo(context, controller));
+      }
+    });
   }
 
   Widget build(BuildContext context) {
@@ -239,34 +250,4 @@ class _homePageState extends State<homePage> {
       ),
     );
   }
-}
-
-void _exibirDialogo(context, controller) {
-  final textController = TextEditingController();
-  showDialog(
-    context: context,
-    builder: (BuildContext context) {
-      // retorna um objeto do tipo Dialog
-      return AlertDialog(
-        title:
-            new Text("Me informe o nome pelo qual você quer ser chamado. :)"),
-        content: TextField(
-          controller: textController,
-        ),
-        actions: [
-          TextButton(
-            style: ButtonStyle(
-              foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
-              backgroundColor: MaterialStateProperty.all(Colors.blue),
-            ),
-            onPressed: () {
-              controller.setNameUser(textController.text);
-              Navigator.pop(context, true);
-            },
-            child: Text('Continuar'),
-          )
-        ],
-      );
-    },
-  );
 }

@@ -1,32 +1,46 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:get/get.dart';
 import 'package:path_provider/path_provider.dart';
 
 class Controller extends GetxController {
   var count = 0;
-  var nameUser = '';
+  var username = '';
   File jsonFile;
   Directory dir;
-  String fileName = "save_user.json";
+  String fileName = "saveUsers.json";
   bool fileExists = false;
   Map<String, String> fileContent;
+
+  @override
+  void onInit() {
+    super.onInit();
+  }
+
+  createFile(Map<String, String> content) {
+    File jsonFile = new File(dir.path + "/" + fileName);
+    jsonFile.createSync();
+    fileExists = true;
+    jsonFile.writeAsStringSync(jsonEncode(content));
+  }
+
   void increment() {
     count++;
     update();
   }
 
   void setNameUser(name) {
-        getApplicationDocumentsDirectory().then((Directory directory) {
-      dir = directory;
-      print(directory);
-      jsonFile = new File(dir.path + "/" + fileName);
-      fileExists = jsonFile.existsSync();
-      if (fileExists)
-        fileContent = jsonDecode(jsonFile.readAsStringSync());
-    });
-    nameUser = name;
+    if (!fileExists) {
+      this.createFile({});
+    }
+    var saveUser = jsonDecode(jsonFile.readAsStringSync());
+    saveUser['username'] = name;
+    jsonFile.writeAsStringSync(jsonEncode(saveUser));
+    this.username = name;
     update();
   }
 }
