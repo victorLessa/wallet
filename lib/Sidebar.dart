@@ -123,6 +123,13 @@ class _sidebarState extends State<sidebar> with TickerProviderStateMixin {
                           "Projeções",
                           ModalRoute.of(context).settings.name ==
                               '/projections'),
+                    ),
+                    InkWell(
+                      onTap: () {
+                        Navigator.pushNamed(context, '/addStock');
+                      },
+                      child: navigatorTitle("Adicionar ativos",
+                          ModalRoute.of(context).settings.name == '/addStock'),
                     )
                   ],
                 ),

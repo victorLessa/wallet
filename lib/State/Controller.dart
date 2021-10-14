@@ -1,15 +1,12 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:get/get.dart';
-import 'package:path_provider/path_provider.dart';
 
 class Controller extends GetxController {
   var count = 0;
   var username = '';
+  List stocks = [];
   File jsonFile;
   Directory dir;
   String fileName = "saveUsers.json";
@@ -42,5 +39,15 @@ class Controller extends GetxController {
     jsonFile.writeAsStringSync(jsonEncode(saveUser));
     this.username = name;
     update();
+  }
+
+  bool addStock(data) {
+    var has = this.stocks.where((element) => element['code'] == data['code']);
+    if (has.length == 0) {
+      this.stocks.add(data);
+    } else {
+      return true;
+    }
+    return false;
   }
 }
