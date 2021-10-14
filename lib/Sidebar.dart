@@ -164,7 +164,9 @@ class _sidebarState extends State<sidebar> with TickerProviderStateMixin {
                     borderRadius: BorderRadius.all(Radius.circular(40)),
                     color: Colors.white),
                 child: ClipRRect(
-                  borderRadius: BorderRadius.all(Radius.circular(40)),
+                  borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(40.0),
+                      topRight: Radius.circular(40.0)),
                   child: widget.component,
                 ),
               ),

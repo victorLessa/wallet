@@ -50,8 +50,7 @@ class _homePageState extends State<homePage> {
         body: Column(
           children: [
             Container(
-              padding:
-                  EdgeInsets.only(top: 30, left: 20, bottom: 10, right: 30),
+              padding: EdgeInsets.only(top: 30, left: 20, bottom: 0, right: 30),
               child: Row(
                 children: [
                   Container(
@@ -75,94 +74,99 @@ class _homePageState extends State<homePage> {
                 ],
               ),
             ),
+            Container(
+              padding:
+                  EdgeInsets.only(left: 20, bottom: 20, top: 20.0, right: 30),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text(
+                    "Resumo da Carteira no mês",
+                    style: TextStyle(
+                        fontSize: 21,
+                        fontWeight: FontWeight.w800,
+                        fontFamily: 'avenir'),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Container(
+                    padding: EdgeInsets.all(30),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(10)),
+                      color: Color(0xfff1f3f6),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "Rendimento",
+                              style: TextStyle(
+                                  fontSize: 16, fontWeight: FontWeight.w400),
+                            ),
+                            Text(
+                              "R\$ 100",
+                              style: TextStyle(
+                                  fontSize: 22, fontWeight: FontWeight.w700),
+                            ),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            Text(
+                              "DY",
+                              style: TextStyle(
+                                  fontSize: 16, fontWeight: FontWeight.w400),
+                            ),
+                            Text(
+                              "8,6%",
+                              style: TextStyle(
+                                  fontSize: 22, fontWeight: FontWeight.w700),
+                            ),
+                          ],
+                        ),
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "Valor Investido",
+                              style: TextStyle(
+                                  fontSize: 16, fontWeight: FontWeight.w400),
+                            ),
+                            Text(
+                              "R\$ 20.600",
+                              style: TextStyle(
+                                  fontSize: 22, fontWeight: FontWeight.w700),
+                            ),
+                            SizedBox(height: 20),
+                            Text(
+                              "Rentabilidade",
+                              style: TextStyle(
+                                  fontSize: 16, fontWeight: FontWeight.w400),
+                            ),
+                            Text(
+                              "3%",
+                              style: TextStyle(
+                                  fontSize: 22, fontWeight: FontWeight.w700),
+                            ),
+                          ],
+                        )
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
             Expanded(
-              child: SingleChildScrollView(
-                padding: EdgeInsets.all(20),
+              child: Container(
+                padding: EdgeInsets.only(left: 20, bottom: 20, right: 30),
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Text(
-                      "Resumo da Carteira no mês",
-                      style: TextStyle(
-                          fontSize: 21,
-                          fontWeight: FontWeight.w800,
-                          fontFamily: 'avenir'),
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Container(
-                      padding: EdgeInsets.all(30),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.all(Radius.circular(10)),
-                        color: Color(0xfff1f3f6),
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                "Rendimento",
-                                style: TextStyle(
-                                    fontSize: 16, fontWeight: FontWeight.w400),
-                              ),
-                              Text(
-                                "R\$ 100",
-                                style: TextStyle(
-                                    fontSize: 22, fontWeight: FontWeight.w700),
-                              ),
-                              SizedBox(
-                                height: 20,
-                              ),
-                              Text(
-                                "DY",
-                                style: TextStyle(
-                                    fontSize: 16, fontWeight: FontWeight.w400),
-                              ),
-                              Text(
-                                "8,6%",
-                                style: TextStyle(
-                                    fontSize: 22, fontWeight: FontWeight.w700),
-                              ),
-                            ],
-                          ),
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                "Valor Investido",
-                                style: TextStyle(
-                                    fontSize: 16, fontWeight: FontWeight.w400),
-                              ),
-                              Text(
-                                "R\$ 20.600",
-                                style: TextStyle(
-                                    fontSize: 22, fontWeight: FontWeight.w700),
-                              ),
-                              SizedBox(height: 20),
-                              Text(
-                                "Rentabilidade",
-                                style: TextStyle(
-                                    fontSize: 16, fontWeight: FontWeight.w400),
-                              ),
-                              Text(
-                                "3%",
-                                style: TextStyle(
-                                    fontSize: 22, fontWeight: FontWeight.w700),
-                              ),
-                            ],
-                          )
-                        ],
-                      ),
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
+                  children: [
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -176,13 +180,23 @@ class _homePageState extends State<homePage> {
                       ],
                     ),
                     SizedBox(
-                      height: 10,
+                      height: 10.0,
                     ),
-                    fiiWidget("avatar1", "Mike"),
-                    fiiWidget("avatar1", "Mike"),
-                    fiiWidget("avatar1", "Mike"),
-                    SizedBox(
-                      height: 20,
+                    Expanded(
+                      child: Container(
+                        height: 300.0,
+                        child: ListView.builder(
+                          shrinkWrap: true,
+                          padding: EdgeInsets.all(0),
+                          itemCount: controller.stocks.length,
+                          itemBuilder: (context, index) {
+                            return ListTile(
+                              contentPadding: EdgeInsets.all(0),
+                              title: cardFii(controller.stocks[index]['name']),
+                            );
+                          },
+                        ),
+                      ),
                     ),
                   ],
                 ),
@@ -192,7 +206,7 @@ class _homePageState extends State<homePage> {
         ));
   }
 
-  Container fiiWidget(String img, String name) {
+  Widget cardFii(String name) {
     return Container(
       padding: EdgeInsets.all(30),
       margin: EdgeInsets.only(bottom: 10),
@@ -211,7 +225,7 @@ class _homePageState extends State<homePage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "BCFF11",
+                  name,
                   style: TextStyle(fontSize: 22, fontWeight: FontWeight.w700),
                 ),
                 SizedBox(

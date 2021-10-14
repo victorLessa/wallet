@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 
-class StatusStatusApi {
+class StatusInvestApi {
   Future<Response> http(ticket) async {
     var response = await Dio().get(
         'https://statusinvest.com.br/home/mainsearchquery?q=$ticket&country=');

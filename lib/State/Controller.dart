@@ -41,10 +41,15 @@ class Controller extends GetxController {
     update();
   }
 
-  bool addStock(data) {
+  void addStock(data) {
+    this.stocks.add(data);
+    update();
+  }
+
+  bool submitStock(data) {
     var has = this.stocks.where((element) => element['code'] == data['code']);
     if (has.length == 0) {
-      this.stocks.add(data);
+      this.addStock(data);
     } else {
       return true;
     }

@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
+import 'package:get/get.dart';
 import 'package:wallet/Service/StatusInvestApi.dart';
 import 'package:wallet/State/Controller.dart';
 
@@ -13,7 +14,7 @@ class AddStock extends StatefulWidget {
 }
 
 class _AddStockState extends State<AddStock> {
-  Controller controller = Controller();
+  Controller controller = Get.put(Controller());
   final quantityStockController = TextEditingController();
   final typeAheadFieldController = TextEditingController();
   var formData = new Map();
@@ -104,7 +105,7 @@ class _AddStockState extends State<AddStock> {
                         this.formData['quantityStock'] =
                             quantityStockController.text;
 
-                        bool has = controller.addStock(this.formData);
+                        bool has = controller.submitStock(this.formData);
                         if (has) {
                           dialog('Ativo já faz parte da sua carteira.');
                         } else {
@@ -134,7 +135,7 @@ class _AddStockState extends State<AddStock> {
               border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(10.0)))),
       suggestionsCallback: (pattern) async {
-        return await StatusStatusApi().searchStock(pattern);
+        return await StatusInvestApi().searchStock(pattern);
       },
       itemBuilder: (context, suggestion) {
         return ListTile(
@@ -148,7 +149,7 @@ class _AddStockState extends State<AddStock> {
     );
   }
 
-  Widget dialog(String text) {
+  void dialog(String text) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
