@@ -1,12 +1,8 @@
-import 'dart:convert';
-import 'dart:io';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:get/get.dart';
-import 'package:path_provider/path_provider.dart';
+import 'package:intl/intl.dart';
+import 'package:jiffy/jiffy.dart';
 import 'package:wallet/State/Controller.dart';
-import 'package:wallet/components/showDialog.dart';
 
 class HomePage extends StatelessWidget {
   @override
@@ -27,21 +23,6 @@ class _homePageState extends State<homePage> {
   void initState() {
     super.initState();
     // TODO: implement initState
-
-    getApplicationDocumentsDirectory().then((Directory directory) {
-      controller.dir = directory;
-      controller.jsonFile =
-          new File(controller.dir.path + "/" + controller.fileName);
-      controller.fileExists = controller.jsonFile.existsSync();
-      if (controller.fileExists) {
-        var saveUser = jsonDecode(controller.jsonFile.readAsStringSync());
-        controller.username = saveUser["username"];
-      } else {
-        controller.createFile({});
-        SchedulerBinding.instance
-            .addPostFrameCallback((_) => exibirDialogo(context, controller));
-      }
-    });
   }
 
   Widget build(BuildContext context) {
@@ -184,19 +165,20 @@ class _homePageState extends State<homePage> {
                     ),
                     Expanded(
                       child: Container(
-                        height: 300.0,
-                        child: ListView.builder(
-                          shrinkWrap: true,
-                          padding: EdgeInsets.all(0),
-                          itemCount: controller.stocks.length,
-                          itemBuilder: (context, index) {
-                            return ListTile(
-                              contentPadding: EdgeInsets.all(0),
-                              title: cardFii(controller.stocks[index]['name']),
-                            );
-                          },
-                        ),
-                      ),
+                          height: 300.0,
+                          child: GetBuilder<Controller>(
+                            builder: (_) => ListView.builder(
+                              shrinkWrap: true,
+                              padding: EdgeInsets.all(0),
+                              itemCount: controller.stocks.length,
+                              itemBuilder: (context, index) {
+                                return ListTile(
+                                  contentPadding: EdgeInsets.all(0),
+                                  title: cardFii(controller.stocks[index]),
+                                );
+                              },
+                            ),
+                          )),
                     ),
                   ],
                 ),
@@ -206,7 +188,27 @@ class _homePageState extends State<homePage> {
         ));
   }
 
-  Widget cardFii(String name) {
+  double number(String string) {
+    return double.parse(string);
+  }
+
+  Widget cardFii(stock) {
+    var date = Jiffy(stock['dividends']['pd'], "dd/MM/yyyy");
+    var total = '0';
+    var dividend = '0,00';
+    var difference = '';
+    if (date.month == Jiffy().month) {
+      var value = stock['dividends']['v'];
+
+      var f = NumberFormat("#,##0.00", "pt");
+      dividend = f.format(value);
+      total = f.format(this.number(stock['quantityStock']) * value);
+      difference = DateTime.parse(date.format())
+          .difference(DateTime.now())
+          .inDays
+          .toString();
+    }
+
     return Container(
       padding: EdgeInsets.all(30),
       margin: EdgeInsets.only(bottom: 10),
@@ -225,14 +227,14 @@ class _homePageState extends State<homePage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  name,
+                  stock['code'],
                   style: TextStyle(fontSize: 22, fontWeight: FontWeight.w700),
                 ),
                 SizedBox(
                   height: 10,
                 ),
                 Text(
-                  "Rendimento: 0,50",
+                  "Rendimento: R\$ $dividend",
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
                 ),
               ],
@@ -244,18 +246,30 @@ class _homePageState extends State<homePage> {
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               Text(
-                "R\$ 20,00",
+                "R\$ $total",
                 style: TextStyle(fontSize: 22, fontWeight: FontWeight.w700),
               ),
               Container(
                 padding: EdgeInsets.only(
                     bottom: 5.0, top: 5.0, left: 10.0, right: 10.0),
                 decoration: BoxDecoration(
+                    color:
+                        difference == '0' ? Colors.green : Colors.transparent,
                     borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                    border: Border.all(width: 3.0, color: Colors.black38)),
+                    border: Border.all(
+                        width: 3.0,
+                        color:
+                            difference == '0' ? Colors.green : Colors.black38)),
                 child: Text(
-                  "daqui 5 dias",
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
+                  difference != ''
+                      ? difference == '0'
+                          ? 'Recebe hoje'
+                          : "daqui $difference dias"
+                      : 'Sem divulgação',
+                  style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w400,
+                      color: difference == '0' ? Colors.white : Colors.black38),
                 ),
               )
             ],

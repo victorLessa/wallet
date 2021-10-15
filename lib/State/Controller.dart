@@ -1,7 +1,10 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:flutter/scheduler.dart';
 import 'package:get/get.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:wallet/Service/StatusInvestApi.dart';
 
 class Controller extends GetxController {
   var count = 0;
@@ -15,6 +18,17 @@ class Controller extends GetxController {
 
   @override
   void onInit() {
+    getApplicationDocumentsDirectory().then((Directory directory) async {
+      dir = directory;
+      jsonFile = new File(dir.path + "/" + fileName);
+      fileExists = jsonFile.existsSync();
+      if (fileExists) {
+        var saveUser = jsonDecode(jsonFile.readAsStringSync());
+        this.stocks = await StatusInvestApi().lastDividends(saveUser['stocks']);
+        username = saveUser['username'];
+        update();
+      }
+    });
     super.onInit();
   }
 
@@ -41,8 +55,16 @@ class Controller extends GetxController {
     update();
   }
 
-  void addStock(data) {
+  void addStock(data) async {
+    if (!fileExists) {
+      this.createFile({});
+    }
+    var lastDividend = await StatusInvestApi().searchLastDividend(data['code']);
+    data['dividends'] = lastDividend;
     this.stocks.add(data);
+    var saveUser = jsonDecode(jsonFile.readAsStringSync());
+    saveUser['stocks'] = this.stocks;
+    jsonFile.writeAsStringSync(jsonEncode(saveUser));
     update();
   }
 

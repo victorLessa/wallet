@@ -3,7 +3,7 @@ Urls para consulta de ativos (TODOS)
 https://statusinvest.com.br/home/mainsearchquery?q=xpl&country=
 
 Últimos proventos:
-https://statusinvest.com.br/acao/companytickerprovents?companyName=xplg&ticker=XPLG11&chartProventsType=0
+https://statusinvest.com.br/acao/companytickerprovents?companyName=xplg&ticker=HGLG11&chartProventsType=0
 
 Url para historico de preço:
 https://statusinvest.com.br/fii/tickerprice

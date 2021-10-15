@@ -75,7 +75,7 @@ class _sidebarState extends State<sidebar> with TickerProviderStateMixin {
                             children: [
                               GetBuilder<Controller>(
                                 builder: (_) => Text(
-                                  controller.username,
+                                  controller.username ?? 'Sem nome',
                                   style: TextStyle(
                                       fontSize: 19,
                                       fontWeight: FontWeight.w700),
