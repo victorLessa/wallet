@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:wallet/routes/paths.dart';
+import 'package:wallet/routes/Paths.dart';
 import 'HomePage.dart';
 import 'Sidebar.dart';
+
 void main() {
   runApp(MyApp());
 }
@@ -17,6 +18,7 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
 class MyHomePage extends StatefulWidget {
   @override
   _MyHomePageState createState() => _MyHomePageState();
@@ -30,16 +32,14 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Row(
         children: [
           Container(
-            width: MediaQuery.of(context).size.width*0.3,
+            width: MediaQuery.of(context).size.width * 0.3,
             decoration: BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage('asset/images/sideImg.png'),
-                fit: BoxFit.cover
-              )
-            ),
+                image: DecorationImage(
+                    image: AssetImage('asset/images/sideImg.png'),
+                    fit: BoxFit.cover)),
           ),
           Container(
-            width: MediaQuery.of(context).size.width*0.7,
+            width: MediaQuery.of(context).size.width * 0.7,
             padding: EdgeInsets.symmetric(vertical: 60, horizontal: 20),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -47,11 +47,13 @@ class _MyHomePageState extends State<MyHomePage> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text("06:22 AM", style: TextStyle(
-                      fontSize: 30,
-                      fontFamily: 'avenir',
-                      fontWeight: FontWeight.w500
-                    ),),
+                    Text(
+                      "06:22 AM",
+                      style: TextStyle(
+                          fontSize: 30,
+                          fontFamily: 'avenir',
+                          fontWeight: FontWeight.w500),
+                    ),
                     Expanded(
                       child: Container(),
                     ),
@@ -59,25 +61,26 @@ class _MyHomePageState extends State<MyHomePage> {
                       height: 20,
                       width: 20,
                       decoration: BoxDecoration(
-                        image: DecorationImage(
-                          image: AssetImage('asset/images/cloud.png'),
-                          fit: BoxFit.contain
-                        )
-                      ),
+                          image: DecorationImage(
+                              image: AssetImage('asset/images/cloud.png'),
+                              fit: BoxFit.contain)),
                     ),
-                    SizedBox(width: 5,),
-                    Text("34˚ C", style: TextStyle(
-                      fontSize: 20,
-                      fontFamily: 'avenir',
-                      fontWeight: FontWeight.w800
-
-                    ),)
+                    SizedBox(
+                      width: 5,
+                    ),
+                    Text(
+                      "34˚ C",
+                      style: TextStyle(
+                          fontSize: 20,
+                          fontFamily: 'avenir',
+                          fontWeight: FontWeight.w800),
+                    )
                   ],
                 ),
-                Text("Aug 1, 2020 | Wednesday", style: TextStyle(
-                  fontSize: 16,
-                  color: Colors.grey
-                ),),
+                Text(
+                  "Aug 1, 2020 | Wednesday",
+                  style: TextStyle(fontSize: 16, color: Colors.grey),
+                ),
                 Expanded(
                   child: Container(
                     child: Column(
@@ -88,21 +91,24 @@ class _MyHomePageState extends State<MyHomePage> {
                           height: 70,
                           width: 70,
                           decoration: BoxDecoration(
-                            image: DecorationImage(
-                              image: AssetImage('asset/images/logo.png'),
-                              fit: BoxFit.contain
-                            )
-                          ),
+                              image: DecorationImage(
+                                  image: AssetImage('asset/images/logo.png'),
+                                  fit: BoxFit.contain)),
                         ),
-                        Text("eWalle", style: TextStyle(
-                          fontSize: 50,
-                          fontFamily: 'ubuntu',
-                          fontWeight: FontWeight.w600
-                        ),),
-                        SizedBox(height: 10,),
-                        Text("Open An Account For \nDigital E-Wallet Solutions. \nInstant Payouts.\n\nJoin For Free", style: TextStyle(
-                          color: Colors.grey
-                        ),)
+                        Text(
+                          "eWalle",
+                          style: TextStyle(
+                              fontSize: 50,
+                              fontFamily: 'ubuntu',
+                              fontWeight: FontWeight.w600),
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Text(
+                          "Open An Account For \nDigital E-Wallet Solutions. \nInstant Payouts.\n\nJoin For Free",
+                          style: TextStyle(color: Colors.grey),
+                        )
                       ],
                     ),
                   ),
@@ -112,18 +118,21 @@ class _MyHomePageState extends State<MyHomePage> {
                   child: Container(
                     padding: EdgeInsets.all(20),
                     decoration: BoxDecoration(
-                      color: Color(0xffffac30),
-                      borderRadius: BorderRadius.all(Radius.circular(20))
-                    ),
+                        color: Color(0xffffac30),
+                        borderRadius: BorderRadius.all(Radius.circular(20))),
                     child: Center(
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text("Sign Up", style: TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w700
-                          ),),
-                          Icon(Icons.arrow_forward, size: 17,)
+                          Text(
+                            "Sign Up",
+                            style: TextStyle(
+                                fontSize: 14, fontWeight: FontWeight.w700),
+                          ),
+                          Icon(
+                            Icons.arrow_forward,
+                            size: 17,
+                          )
                         ],
                       ),
                     ),
@@ -133,9 +142,10 @@ class _MyHomePageState extends State<MyHomePage> {
                   height: 10,
                 ),
                 Center(
-                  child: Text("Create an account", style: TextStyle(
-                    fontSize: 16
-                  ),),
+                  child: Text(
+                    "Create an account",
+                    style: TextStyle(fontSize: 16),
+                  ),
                 )
               ],
             ),
@@ -144,8 +154,8 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
     );
   }
-  void openHomePage()
-  {
+
+  void openHomePage() {
     Navigator.pushNamed(context, '/homePage');
   }
 }

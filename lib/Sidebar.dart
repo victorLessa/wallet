@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:wallet/State/Controller.dart';
-import 'package:wallet/components/showDialog.dart';
+import 'package:wallet/components/ShowDialog.dart';
 
 class Sidebar extends StatelessWidget {
   final component;
