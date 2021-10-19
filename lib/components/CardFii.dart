@@ -71,7 +71,7 @@ Widget cardFii(stock) {
                       : Colors.transparent,
                   borderRadius: BorderRadius.all(Radius.circular(10.0)),
                   border: Border.all(
-                      width: 3.0,
+                      width: 2.0,
                       color: difference != null && difference < 0
                           ? Colors.green
                           : Colors.black38)),

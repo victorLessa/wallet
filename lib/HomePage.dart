@@ -177,6 +177,23 @@ class _homePageState extends State<homePage> {
                               fontWeight: FontWeight.w800,
                               fontFamily: 'avenir'),
                         ),
+                        InkWell(
+                          onTap: () {
+                            Navigator.pushNamed(context, '/editFiis');
+                          },
+                          child: Row(
+                            children: [
+                              Text(
+                                'Editar',
+                                style: TextStyle(fontSize: 18.0),
+                              ),
+                              SizedBox(
+                                width: 5.0,
+                              ),
+                              Icon(Icons.edit)
+                            ],
+                          ),
+                        )
                       ],
                     ),
                     SizedBox(

@@ -12,13 +12,13 @@ class Controller extends GetxController {
   List stocks = [];
   File jsonFile;
   Directory dir;
-  String fileName = "saveUsers.json";
+  String fileName = "saveUser.json";
   bool fileExists = false;
   var totalPatrimony = '0';
   var totalYield = '0';
   var profitability = '0';
   var dY = '0';
-  Map<String, String> fileContent;
+  var fileContent;
 
   @override
   void onInit() {
@@ -28,20 +28,30 @@ class Controller extends GetxController {
       fileExists = jsonFile.existsSync();
       if (fileExists) {
         var saveUser = jsonDecode(jsonFile.readAsStringSync());
-        this.stocks = await this.getLastDividends(saveUser['stocks']);
-        var total = await this.fethTotalPatrimony(saveUser['stocks']);
-        var totalYield = this.fetchTotalYield(saveUser['stocks']);
-        await this.fetchProfitability();
-        var f = NumberFormat("#,##0.00", "pt");
-
-        this.totalPatrimony = f.format(total);
-        this.totalYield = f.format(totalYield);
-        this.dY = f.format(this.fetchYield(total, totalYield));
+        fileContent = saveUser;
+        await this.updateSummary();
         username = saveUser['username'];
         update();
+      } else {
+        this.createFile({});
       }
     });
     super.onInit();
+  }
+
+  Future updateSummary() async {
+    if (this.fileContent['stocks'].length > 0) {
+      this.stocks = await this.getLastDividends(this.fileContent['stocks']);
+      var total = await this.fethTotalPatrimony(this.fileContent['stocks']);
+      var totalYield = this.fetchTotalYield(this.fileContent['stocks']);
+      await this.fetchProfitability();
+      var f = NumberFormat("#,##0.00", "pt");
+
+      this.totalPatrimony = f.format(total);
+      this.totalYield = f.format(totalYield);
+      this.dY = f.format(this.fetchYield(total, totalYield));
+      update();
+    }
   }
 
   Future<List> getLastDividends(stocks) async {
@@ -60,6 +70,7 @@ class Controller extends GetxController {
     jsonFile.createSync();
     fileExists = true;
     jsonFile.writeAsStringSync(jsonEncode(content));
+    this.fileContent = content;
   }
 
   void increment() {
@@ -78,7 +89,7 @@ class Controller extends GetxController {
     update();
   }
 
-  void addStock(data) async {
+  Future addStock(data) async {
     if (!fileExists) {
       this.createFile({});
     }
@@ -87,18 +98,34 @@ class Controller extends GetxController {
     this.stocks.add(data);
     var saveUser = jsonDecode(jsonFile.readAsStringSync());
     saveUser['stocks'] = this.stocks;
+    this.fileContent['stocks'] = this.stocks;
     jsonFile.writeAsStringSync(jsonEncode(saveUser));
-    update();
+    await this.updateSummary();
   }
 
-  bool submitStock(data) {
+  Future submitStock(data) async {
     var has = this.stocks.where((element) => element['code'] == data['code']);
     if (has.length == 0) {
-      this.addStock(data);
+      await this.addStock(data);
     } else {
       return true;
     }
     return false;
+  }
+
+  Future removeStock(id) async {
+    List newStock = [];
+    for (var stock in this.stocks) {
+      if (stock['id'] != id) {
+        newStock.add(stock);
+      }
+    }
+    this.stocks = newStock;
+    if (this.fileContent.length >= 0) {
+      this.fileContent['stocks'] = this.stocks;
+    }
+    jsonFile.writeAsStringSync(jsonEncode(this.fileContent));
+    await this.updateSummary();
   }
 
 // Resumo da carteira
@@ -126,7 +153,12 @@ class Controller extends GetxController {
   }
 
   double fetchYield(total, totalYield) {
-    return (totalYield * 100) / total;
+    var result = (totalYield * 100) / total;
+
+    if (result.isNaN)
+      return 0;
+    else
+      return result;
   }
 
   fetchProfitability() async {
@@ -145,7 +177,9 @@ class Controller extends GetxController {
 
     var f = NumberFormat("#,##0.00", "pt");
 
-    if (percentage < 100) {
+    if (percentage.isNaN) {
+      this.profitability = '0%';
+    } else if (percentage < 100) {
       this.profitability = f.format(100 - percentage) + '%';
     } else {
       this.profitability = f.format(percentage - 100) + '%';

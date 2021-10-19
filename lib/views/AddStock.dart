@@ -101,11 +101,11 @@ class _AddStockState extends State<AddStock> {
                             MaterialStateProperty.all<Color>(Colors.white),
                         backgroundColor: MaterialStateProperty.all(Colors.blue),
                       ),
-                      onPressed: () {
+                      onPressed: () async {
                         this.formData['quantityStock'] =
                             quantityStockController.text;
 
-                        bool has = controller.submitStock(this.formData);
+                        bool has = await controller.submitStock(this.formData);
                         if (has) {
                           dialog('Ativo já faz parte da sua carteira.');
                         } else {

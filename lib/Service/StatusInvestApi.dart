@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 
 class StatusInvestApi {
+  final searchTicker = 'https://statusinvest.com.br/home/mainsearchquery';
   Future<Response> get(String url) async {
     var response = await Dio().get(url);
     return response;
@@ -14,8 +15,7 @@ class StatusInvestApi {
   }
 
   searchStock(ticket) async {
-    var response = await this.get(
-        'https://statusinvest.com.br/home/mainsearchquery?q=$ticket&country=');
+    var response = await this.get('$searchTicker?q=$ticket&country=');
     return response.data;
     // .map((key, value) => value["nameFormated"]);
   }
