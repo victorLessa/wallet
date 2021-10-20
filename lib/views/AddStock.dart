@@ -1,8 +1,11 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:get/get.dart';
+import 'package:rounded_loading_button/rounded_loading_button.dart';
 import 'package:wallet/Service/StatusInvestApi.dart';
 import 'package:wallet/State/Controller.dart';
 
@@ -18,6 +21,8 @@ class _AddStockState extends State<AddStock> {
   final quantityStockController = TextEditingController();
   final typeAheadFieldController = TextEditingController();
   var formData = new Map();
+  final RoundedLoadingButtonController _btnController =
+      RoundedLoadingButtonController();
 
   @override
   void initState() {
@@ -92,15 +97,8 @@ class _AddStockState extends State<AddStock> {
                   SizedBox(
                     width: double.infinity,
                     height: 50,
-                    child: TextButton(
-                      style: ButtonStyle(
-                        maximumSize: MaterialStateProperty.all(Size.infinite),
-                        shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10.0))),
-                        foregroundColor:
-                            MaterialStateProperty.all<Color>(Colors.white),
-                        backgroundColor: MaterialStateProperty.all(Colors.blue),
-                      ),
+                    child: RoundedLoadingButton(
+                      controller: _btnController,
                       onPressed: () async {
                         this.formData['quantityStock'] =
                             quantityStockController.text;
@@ -112,6 +110,10 @@ class _AddStockState extends State<AddStock> {
                           dialog(
                               "Ativo adicionado a sua carteira com sucesso.");
                         }
+                        _btnController.success();
+                        Timer(Duration(seconds: 1), () {
+                          _btnController.reset();
+                        });
                       },
                       child: Text('Adicionar'),
                     ),

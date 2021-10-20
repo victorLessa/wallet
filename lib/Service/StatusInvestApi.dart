@@ -1,5 +1,4 @@
-import 'dart:convert';
-
+import 'package:web_scraper/web_scraper.dart';
 import 'package:dio/dio.dart';
 
 class StatusInvestApi {
@@ -39,5 +38,16 @@ class StatusInvestApi {
     var response = await this
         .post('https://statusinvest.com.br/fii/tickerprice', formData);
     return response.data;
+  }
+
+  Future<String> fetchDy(String uri) async {
+    final webScraper = WebScraper('https://statusinvest.com.br');
+    if (await webScraper.loadWebPage(uri)) {
+      List<Map<String, dynamic>> elements = webScraper.getElement(
+          '[title="Dividend Yield com base nos últimos 12 meses"] > strong.value',
+          []);
+      return elements[0]['title'];
+    }
+    return '0';
   }
 }

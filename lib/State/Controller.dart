@@ -14,11 +14,13 @@ class Controller extends GetxController {
   Directory dir;
   String fileName = "saveUser.json";
   bool fileExists = false;
+  bool myFiiLoading = true;
   var totalPatrimony = '0';
   var totalYield = '0';
   var profitability = '0';
   var dY = '0';
   var fileContent;
+  var currentDy = '';
 
   @override
   void onInit() {
@@ -30,6 +32,7 @@ class Controller extends GetxController {
         var saveUser = jsonDecode(jsonFile.readAsStringSync());
         fileContent = saveUser;
         await this.updateSummary();
+        this.myFiiLoading = false;
         username = saveUser['username'];
         update();
       } else {
@@ -40,16 +43,25 @@ class Controller extends GetxController {
   }
 
   Future updateSummary() async {
-    if (this.fileContent['stocks'].length > 0) {
+    if (this.fileContent != null && this.fileContent['stocks'].length > 0) {
+      this.myFiiLoading = true;
+      var f = NumberFormat("#,##0.00", "pt");
       this.stocks = await this.getLastDividends(this.fileContent['stocks']);
       var total = await this.fethTotalPatrimony(this.fileContent['stocks']);
       var totalYield = this.fetchTotalYield(this.fileContent['stocks']);
-      await this.fetchProfitability();
-      var f = NumberFormat("#,##0.00", "pt");
 
+      this.profitability = await this.fetchProfitability();
       this.totalPatrimony = f.format(total);
       this.totalYield = f.format(totalYield);
       this.dY = f.format(this.fetchYield(total, totalYield));
+      this.myFiiLoading = false;
+      update();
+    } else {
+      var f = NumberFormat("#,##0.00", "pt");
+      this.totalPatrimony = f.format(0);
+      this.totalYield = f.format(0);
+      this.dY = f.format(0);
+      this.profitability = f.format(0) + '%';
       update();
     }
   }
@@ -100,7 +112,7 @@ class Controller extends GetxController {
     saveUser['stocks'] = this.stocks;
     this.fileContent['stocks'] = this.stocks;
     jsonFile.writeAsStringSync(jsonEncode(saveUser));
-    await this.updateSummary();
+    update();
   }
 
   Future submitStock(data) async {
@@ -125,7 +137,7 @@ class Controller extends GetxController {
       this.fileContent['stocks'] = this.stocks;
     }
     jsonFile.writeAsStringSync(jsonEncode(this.fileContent));
-    await this.updateSummary();
+    update();
   }
 
 // Resumo da carteira
@@ -178,11 +190,11 @@ class Controller extends GetxController {
     var f = NumberFormat("#,##0.00", "pt");
 
     if (percentage.isNaN) {
-      this.profitability = '0%';
+      return '0%';
     } else if (percentage < 100) {
-      this.profitability = f.format(100 - percentage) + '%';
+      return f.format(100 - percentage) + '%';
     } else {
-      this.profitability = f.format(percentage - 100) + '%';
+      return f.format(percentage - 100) + '%';
     }
   }
 }

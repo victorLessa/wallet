@@ -12,6 +12,7 @@ class EditFii extends StatefulWidget {
 
 class _EditFiiState extends State<EditFii> {
   final controller = Get.put(Controller());
+  var isLoading = {'isLoading': false, 'index': -1};
   @override
   void initState() {
     // TODO: implement initState
@@ -79,14 +80,30 @@ class _EditFiiState extends State<EditFii> {
                             children: [
                               Text(controller.stocks[index]['code']),
                               InkWell(
-                                  onTap: () async {
-                                    await controller.removeStock(
-                                        controller.stocks[index]['id']);
-                                  },
-                                  child: Icon(
-                                    Icons.delete,
-                                    color: Colors.red,
-                                  ))
+                                onTap: () async {
+                                  setState(() {
+                                    this.isLoading['isLoading'] = true;
+                                    this.isLoading['index'] = index;
+                                  });
+                                  await controller.removeStock(
+                                      controller.stocks[index]['id']);
+                                  setState(() {
+                                    this.isLoading['isLoading'] = false;
+                                    this.isLoading['index'] = -1;
+                                  });
+                                },
+                                child: this.isLoading['isLoading'] &&
+                                        this.isLoading['index'] == index
+                                    ? SizedBox(
+                                        width: 26.0,
+                                        height: 26.0,
+                                        child: CircularProgressIndicator())
+                                    : Icon(
+                                        Icons.delete,
+                                        size: 26,
+                                        color: Colors.red,
+                                      ),
+                              )
                             ],
                           )),
                     );
