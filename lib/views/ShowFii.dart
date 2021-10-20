@@ -16,6 +16,8 @@ class ShowFii extends StatefulWidget {
 }
 
 class _ShowFiiState extends State<ShowFii> {
+  final Controller controller = Get.put(Controller());
+
   @override
   void initState() {
     // TODO: implement initState
@@ -98,7 +100,9 @@ class _ShowFiiState extends State<ShowFii> {
                           ),
                           GetBuilder<Controller>(
                             builder: (_) => Text(
-                              "R\$ " + widget.stock['price'],
+                              controller.isVisible
+                                  ? "R\$ " + widget.stock['price']
+                                  : '****',
                               style: TextStyle(
                                   fontSize: 22, fontWeight: FontWeight.w700),
                             ),
@@ -119,11 +123,15 @@ class _ShowFiiState extends State<ShowFii> {
                               if (!snapshot.hasData) {
                                 return Text('Carregando...');
                               } else {
-                                return Text(
-                                  snapshot.data + '%',
-                                  style: TextStyle(
-                                      fontSize: 22,
-                                      fontWeight: FontWeight.w700),
+                                return GetBuilder<Controller>(
+                                  builder: (_) => Text(
+                                    controller.isVisible
+                                        ? snapshot.data + '%'
+                                        : '****',
+                                    style: TextStyle(
+                                        fontSize: 22,
+                                        fontWeight: FontWeight.w700),
+                                  ),
                                 );
                               }
                             },
@@ -142,7 +150,9 @@ class _ShowFiiState extends State<ShowFii> {
                           GetBuilder<Controller>(
                             builder: (_) => Container(
                               child: Text(
-                                "R\$ " + this.valueApplied(),
+                                controller.isVisible
+                                    ? "R\$ " + this.valueApplied()
+                                    : '****',
                                 style: TextStyle(
                                     fontSize: 22, fontWeight: FontWeight.w700),
                               ),
@@ -158,7 +168,9 @@ class _ShowFiiState extends State<ShowFii> {
                             children: [
                               GetBuilder<Controller>(
                                 builder: (_) => Text(
-                                  widget.stock['quantityStock'],
+                                  controller.isVisible
+                                      ? widget.stock['quantityStock']
+                                      : '****',
                                   style: TextStyle(
                                       fontSize: 22,
                                       fontWeight: FontWeight.w700),
@@ -233,10 +245,12 @@ class _ShowFiiState extends State<ShowFii> {
                                           MainAxisAlignment.spaceBetween,
                                       children: [
                                         Text('Data: ' + dividends[index]['pd']),
-                                        Text(
-                                          'Valor: R\$ ' +
-                                              f.format(dividends[index]['v']),
-                                        ),
+                                        GetBuilder<Controller>(
+                                          builder: (_) => Text(
+                                            'Valor: R\$ ' +
+                                                f.format(dividends[index]['v']),
+                                          ),
+                                        )
                                       ],
                                     ),
                                   ),

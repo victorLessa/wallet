@@ -7,7 +7,7 @@ double number(String string) {
   return double.parse(string);
 }
 
-Widget cardFii(stock) {
+Widget cardFii(stock, isVisible) {
   var date = Jiffy(stock['dividends']['pd'], "dd/MM/yyyy");
   var total = '0';
   var dividend = '0,00';
@@ -47,7 +47,7 @@ Widget cardFii(stock) {
                 height: 10,
               ),
               Text(
-                "Rendimento: R\$ $dividend",
+                isVisible ? "Rendimento: R\$ $dividend" : '****',
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
               ),
             ],
@@ -59,7 +59,7 @@ Widget cardFii(stock) {
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             Text(
-              "R\$ $total",
+              isVisible ? "R\$ $total" : '****',
               style: TextStyle(fontSize: 22, fontWeight: FontWeight.w700),
             ),
             Container(

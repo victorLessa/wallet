@@ -21,6 +21,7 @@ class Controller extends GetxController {
   var dY = '0';
   var fileContent;
   var currentDy = '';
+  bool isVisible = true;
 
   @override
   void onInit() {
@@ -31,6 +32,8 @@ class Controller extends GetxController {
       if (fileExists) {
         var saveUser = jsonDecode(jsonFile.readAsStringSync());
         fileContent = saveUser;
+        this.stocks = await this.getLastDividends(this.fileContent['stocks']);
+        update();
         await this.updateSummary();
         this.myFiiLoading = false;
         username = saveUser['username'];
@@ -42,11 +45,15 @@ class Controller extends GetxController {
     super.onInit();
   }
 
+  visibility(bool value) {
+    this.isVisible = value;
+    update();
+  }
+
   Future updateSummary() async {
     if (this.fileContent != null && this.fileContent['stocks'].length > 0) {
       this.myFiiLoading = true;
       var f = NumberFormat("#,##0.00", "pt");
-      this.stocks = await this.getLastDividends(this.fileContent['stocks']);
       var total = await this.fethTotalPatrimony(this.fileContent['stocks']);
       var totalYield = this.fetchTotalYield(this.fileContent['stocks']);
 

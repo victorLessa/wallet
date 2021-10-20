@@ -95,7 +95,9 @@ class _homePageState extends State<homePage> {
                           ),
                           GetBuilder<Controller>(
                             builder: (_) => Text(
-                              "R\$ " + controller.totalYield,
+                              controller.isVisible
+                                  ? "R\$ " + controller.totalYield
+                                  : '****',
                               style: TextStyle(
                                   fontSize: 22, fontWeight: FontWeight.w700),
                             ),
@@ -110,7 +112,7 @@ class _homePageState extends State<homePage> {
                           ),
                           GetBuilder<Controller>(
                             builder: (_) => Text(
-                              controller.dY,
+                              controller.isVisible ? controller.dY : '****',
                               style: TextStyle(
                                   fontSize: 22, fontWeight: FontWeight.w700),
                             ),
@@ -129,7 +131,9 @@ class _homePageState extends State<homePage> {
                           GetBuilder<Controller>(
                             builder: (_) => Container(
                               child: Text(
-                                "R\$ " + controller.totalPatrimony,
+                                controller.isVisible
+                                    ? "R\$ " + controller.totalPatrimony
+                                    : '****',
                                 style: TextStyle(
                                     fontSize: 22, fontWeight: FontWeight.w700),
                               ),
@@ -145,7 +149,9 @@ class _homePageState extends State<homePage> {
                             children: [
                               GetBuilder<Controller>(
                                 builder: (_) => Text(
-                                  controller.profitability,
+                                  controller.isVisible
+                                      ? controller.profitability
+                                      : '****',
                                   style: TextStyle(
                                       fontSize: 22,
                                       fontWeight: FontWeight.w700),
@@ -232,7 +238,8 @@ class _homePageState extends State<homePage> {
                                     },
                                     child: ListTile(
                                       contentPadding: EdgeInsets.all(0),
-                                      title: cardFii(controller.stocks[index]),
+                                      title: cardFii(controller.stocks[index],
+                                          controller.isVisible),
                                     ),
                                   );
                                 },

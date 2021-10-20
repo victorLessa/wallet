@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:wallet/State/Controller.dart';
 import 'package:wallet/components/ShowDialog.dart';
+import 'package:wallet/components/YeyVisibility.dart';
 
 class Sidebar extends StatelessWidget {
   final component;
@@ -59,12 +60,12 @@ class _sidebarState extends State<sidebar> with TickerProviderStateMixin {
                             width: 50,
                             height: 50,
                             decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: Color(0xfff1f3f6),
-                                image: DecorationImage(
-                                    image:
-                                        AssetImage('asset/images/avatar4.png'),
-                                    fit: BoxFit.contain)),
+                              shape: BoxShape.circle,
+                              color: Color(0xfff1f3f6),
+                              image: DecorationImage(
+                                  image: AssetImage('asset/images/avatar4.png'),
+                                  fit: BoxFit.contain),
+                            ),
                           ),
                           SizedBox(
                             width: 10,
@@ -164,29 +165,34 @@ class _sidebarState extends State<sidebar> with TickerProviderStateMixin {
             ),
           ),
           Positioned(
-            right: 0,
+            right: 10,
             top: 20,
-            child: (sideBarActive)
-                ? IconButton(
-                    padding: EdgeInsets.all(30),
-                    onPressed: closeSideBar,
-                    icon: Icon(
-                      Icons.close,
-                      color: Colors.black,
-                      size: 30,
-                    ),
-                  )
-                : InkWell(
-                    onTap: openSideBar,
-                    child: Container(
-                      margin: EdgeInsets.all(17),
-                      height: 30,
-                      width: 30,
-                      decoration: BoxDecoration(
-                          image: DecorationImage(
-                              image: AssetImage('asset/images/menu.png'))),
-                    ),
-                  ),
+            child: Row(
+              children: [
+                GetBuilder<Controller>(
+                  builder: (_) => yeyVisibility(controller),
+                ),
+                (sideBarActive)
+                    ? IconButton(
+                        padding: EdgeInsets.all(20),
+                        onPressed: closeSideBar,
+                        icon: Icon(
+                          Icons.close,
+                          color: Colors.indigo,
+                          size: 40,
+                        ),
+                      )
+                    : IconButton(
+                        padding: EdgeInsets.all(20),
+                        onPressed: openSideBar,
+                        icon: Icon(
+                          Icons.menu,
+                          color: Colors.indigo,
+                          size: 40,
+                        ),
+                      ),
+              ],
+            ),
           )
         ],
       ),
