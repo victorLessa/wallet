@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:wallet/State/Controller.dart';
-import 'package:wallet/components/ShowDialog.dart';
+import 'package:wallet/components/AskName.dart';
 import 'package:wallet/components/YeyVisibility.dart';
 
 class Sidebar extends StatelessWidget {
@@ -89,17 +89,18 @@ class _sidebarState extends State<sidebar> with TickerProviderStateMixin {
                               exibirDialogo(context, controller);
                             },
                             child: Padding(
-                                padding: EdgeInsets.only(bottom: 15.0),
-                                child: CircleAvatar(
-                                  maxRadius: 9.0,
-                                  backgroundColor: Colors.black26,
-                                  child: Icon(
-                                    Icons.edit,
-                                    color: Colors.white,
-                                    size: 10.0,
-                                    semanticLabel: 'Editar seu nome.',
-                                  ),
-                                )),
+                              padding: EdgeInsets.only(bottom: 15.0),
+                              child: CircleAvatar(
+                                maxRadius: 9.0,
+                                backgroundColor: Colors.black26,
+                                child: Icon(
+                                  Icons.edit,
+                                  color: Colors.white,
+                                  size: 10.0,
+                                  semanticLabel: 'Editar seu nome.',
+                                ),
+                              ),
+                            ),
                           )
                         ],
                       ),
@@ -178,7 +179,7 @@ class _sidebarState extends State<sidebar> with TickerProviderStateMixin {
                         onPressed: closeSideBar,
                         icon: Icon(
                           Icons.close,
-                          color: Colors.indigo,
+                          color: Colors.blueGrey,
                           size: 40,
                         ),
                       )
@@ -187,7 +188,7 @@ class _sidebarState extends State<sidebar> with TickerProviderStateMixin {
                         onPressed: openSideBar,
                         icon: Icon(
                           Icons.menu,
-                          color: Colors.indigo,
+                          color: Colors.blueGrey,
                           size: 40,
                         ),
                       ),

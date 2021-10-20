@@ -6,6 +6,8 @@ import 'package:intl/intl.dart';
 import 'package:wallet/Service/StatusInvestApi.dart';
 import 'package:wallet/Sidebar.dart';
 import 'package:wallet/State/Controller.dart';
+import 'package:wallet/components/Dialog.dart';
+import 'package:wallet/views/EditFii.dart';
 
 class ShowFii extends StatefulWidget {
   final stock;
@@ -17,7 +19,7 @@ class ShowFii extends StatefulWidget {
 
 class _ShowFiiState extends State<ShowFii> {
   final Controller controller = Get.put(Controller());
-
+  bool isLoadingTrash = false;
   @override
   void initState() {
     // TODO: implement initState
@@ -43,22 +45,72 @@ class _ShowFiiState extends State<ShowFii> {
           Container(
             padding: EdgeInsets.only(top: 30, left: 20, bottom: 0, right: 30),
             child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Container(
-                  width: 50,
-                  height: 50,
-                  decoration: BoxDecoration(
-                      image: DecorationImage(
-                    image: AssetImage('asset/images/logo.png'),
-                  )),
+                Row(
+                  children: [
+                    Container(
+                      width: 50,
+                      height: 50,
+                      decoration: BoxDecoration(
+                          image: DecorationImage(
+                        image: AssetImage('asset/images/logo.png'),
+                      )),
+                    ),
+                    SizedBox(
+                      width: 5,
+                    ),
+                    Text(
+                      "eWalle",
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontFamily: 'ubuntu',
+                          fontSize: 25),
+                    )
+                  ],
                 ),
-                SizedBox(
-                  width: 5,
-                ),
-                Text(
-                  "eWalle",
-                  style: TextStyle(
-                      color: Colors.black, fontFamily: 'ubuntu', fontSize: 25),
+                Row(
+                  children: [
+                    IconButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => Sidebar(
+                              component: EditFii(stock: widget.stock),
+                            ),
+                          ),
+                        );
+                      },
+                      icon: Icon(
+                        Icons.edit,
+                        color: Colors.blueGrey,
+                        size: 30.0,
+                      ),
+                    ),
+                    SizedBox(
+                      width: 10.0,
+                    ),
+                    IconButton(
+                      onPressed: () async {
+                        try {
+                          setState(() {
+                            this.isLoadingTrash = true;
+                          });
+                          await controller.removeStock(widget.stock['id']);
+                          setState(() {
+                            this.isLoadingTrash = false;
+                          });
+                          Navigator.of(context).pop();
+                        } catch (e) {
+                          dialog(e, context);
+                        }
+                      },
+                      icon: isLoadingTrash
+                          ? CircularProgressIndicator()
+                          : Icon(Icons.delete, color: Colors.red, size: 30.0),
+                    )
+                  ],
                 )
               ],
             ),
@@ -94,7 +146,7 @@ class _ShowFiiState extends State<ShowFii> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            "Valor",
+                            "Valor do Ativo",
                             style: TextStyle(
                                 fontSize: 16, fontWeight: FontWeight.w400),
                           ),

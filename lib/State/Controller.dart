@@ -9,7 +9,7 @@ import 'package:wallet/Service/StatusInvestApi.dart';
 class Controller extends GetxController {
   var count = 0;
   var username = '';
-  List stocks = [];
+  List<dynamic> stocks = [];
   File jsonFile;
   Directory dir;
   String fileName = "saveUser.json";
@@ -122,6 +122,17 @@ class Controller extends GetxController {
     update();
   }
 
+  updateStock(id, form) {
+    for (var i = 0; i < this.stocks.length; i++) {
+      if (this.stocks[i]['id'] == id) {
+        this.stocks[i]['quantityStock'] = form['quantityStock'];
+      }
+    }
+    this.fileContent['stocks'] = this.stocks;
+    update();
+    this.updateSummary();
+  }
+
   Future submitStock(data) async {
     var has = this.stocks.where((element) => element['code'] == data['code']);
     if (has.length == 0) {
@@ -144,6 +155,7 @@ class Controller extends GetxController {
       this.fileContent['stocks'] = this.stocks;
     }
     jsonFile.writeAsStringSync(jsonEncode(this.fileContent));
+    await this.updateSummary();
     update();
   }
 
@@ -162,9 +174,8 @@ class Controller extends GetxController {
     double total = 0;
 
     for (var stock in stocks) {
-      var response = await StatusInvestApi().searchStock(stock['code']);
-      var price = double.parse(
-          response[0]['price'].replaceAll('.', '').replaceAll(',', '.'));
+      var price =
+          double.parse(stock['price'].replaceAll('.', '').replaceAll(',', '.'));
       total += price * double.parse(stock['quantityStock']);
     }
 
