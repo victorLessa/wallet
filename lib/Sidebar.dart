@@ -1,7 +1,10 @@
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:share/share.dart';
 import 'package:wallet/State/Controller.dart';
 import 'package:wallet/components/AskName.dart';
+import 'package:wallet/components/Dialog.dart';
 import 'package:wallet/components/YeyVisibility.dart';
 
 class Sidebar extends StatelessWidget {
@@ -123,6 +126,36 @@ class _sidebarState extends State<sidebar> with TickerProviderStateMixin {
                       },
                       child: navigatorTitle("Adicionar ativos",
                           ModalRoute.of(context).settings.name == '/addStock'),
+                    ),
+                    InkWell(
+                      onTap: () async {
+                        var path =
+                            controller.dir.path + "/" + controller.fileName;
+                        await Share.shareFiles(['$path'],
+                            text: 'Great picture');
+                      },
+                      child: navigatorTitle("Exportar dados", false),
+                    ),
+                    InkWell(
+                      onTap: () async {
+                        FilePickerResult result =
+                            await FilePicker.platform.pickFiles(
+                          type: FileType.custom,
+                          allowedExtensions: ['json'],
+                        );
+
+                        if (result != null) {
+                          var path = result.files.first.path.toString();
+                          try {
+                            await controller.addSave(path);
+                          } catch (e) {
+                            dialog('Arquivo não suportado.', context);
+                          }
+                        } else {
+                          // User canceled the picker
+                        }
+                      },
+                      child: navigatorTitle("Importar dados", false),
                     )
                   ],
                 ),

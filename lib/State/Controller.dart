@@ -32,8 +32,10 @@ class Controller extends GetxController {
       if (fileExists) {
         var saveUser = jsonDecode(jsonFile.readAsStringSync());
         fileContent = saveUser;
-        this.stocks = await this.getLastDividends(this.fileContent['stocks']);
-        update();
+        if (this.fileContent.length > 0) {
+          this.stocks = await this.getLastDividends(this.fileContent['stocks']);
+          update();
+        }
         await this.updateSummary();
         this.myFiiLoading = false;
         username = saveUser['username'];
@@ -45,13 +47,34 @@ class Controller extends GetxController {
     super.onInit();
   }
 
+  addSave(String path) async {
+    var importSave = new File(path);
+    fileExists = importSave.existsSync();
+    if (fileExists) {
+      this.myFiiLoading = true;
+      var saveUser = jsonDecode(importSave.readAsStringSync());
+      fileContent = saveUser;
+      if (this.fileContent.length > 0) {
+        this.stocks = await this.getLastDividends(this.fileContent['stocks']);
+        update();
+      }
+      await this.updateSummary();
+      this.myFiiLoading = false;
+      username = saveUser['username'];
+      jsonFile.writeAsStringSync(jsonEncode(saveUser));
+      update();
+    }
+  }
+
   visibility(bool value) {
     this.isVisible = value;
     update();
   }
 
   Future updateSummary() async {
-    if (this.fileContent != null && this.fileContent['stocks'].length > 0) {
+    if (this.fileContent != null &&
+        this.fileContent.length > 0 &&
+        this.fileContent['stocks'].length > 0) {
       this.myFiiLoading = true;
       var f = NumberFormat("#,##0.00", "pt");
       var total = await this.fethTotalPatrimony(this.fileContent['stocks']);
