@@ -8,22 +8,27 @@ void exibirDialogo(context, controller) {
     builder: (BuildContext context) {
       // retorna um objeto do tipo Dialog
       return AlertDialog(
-        title:
-            new Text("Me informe o nome pelo qual você quer ser chamado. :)"),
+        title: new Text(
+          "Me informe o nome pelo qual você quer ser chamado. :)",
+          textAlign: TextAlign.center,
+        ),
         content: TextField(
           controller: textController,
         ),
         actions: [
-          TextButton(
-            style: ButtonStyle(
-              foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
-              backgroundColor: MaterialStateProperty.all(Colors.blue),
+          SizedBox(
+            width: double.infinity,
+            child: TextButton(
+              style: ButtonStyle(
+                foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
+                backgroundColor: MaterialStateProperty.all(Colors.blue),
+              ),
+              onPressed: () {
+                controller.setNameUser(textController.text);
+                Navigator.pop(context, true);
+              },
+              child: Text('Continuar'),
             ),
-            onPressed: () {
-              controller.setNameUser(textController.text);
-              Navigator.pop(context, true);
-            },
-            child: Text('Continuar'),
           )
         ],
       );

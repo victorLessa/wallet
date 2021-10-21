@@ -1,10 +1,12 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:flutter/scheduler.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:wallet/Service/StatusInvestApi.dart';
+import 'package:wallet/components/AskName.dart';
 
 class Controller extends GetxController {
   var count = 0;

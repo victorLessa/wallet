@@ -1,6 +1,12 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:get/get.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:wallet/State/Controller.dart';
+import 'package:wallet/components/AskName.dart';
 import 'package:wallet/components/CardFii.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:wallet/components/SummaryWallet.dart';
@@ -27,6 +33,16 @@ class _homePageState extends State<homePage> {
         controller.updateSummary();
       }),
     );
+    getApplicationDocumentsDirectory().then((Directory directory) {
+      Directory dir = directory;
+      File jsonFile = new File(dir.path + "/" + controller.fileName);
+      var user = jsonDecode(jsonFile.readAsStringSync());
+      bool fileExists = jsonFile.existsSync();
+      if (!fileExists || user['username'] == null) {
+        SchedulerBinding.instance
+            .addPostFrameCallback((_) => exibirDialogo(context, controller));
+      }
+    });
     super.initState();
     // TODO: implement initState
   }
