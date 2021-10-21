@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:wallet/routes/Paths.dart';
-import 'HomePage.dart';
-import 'Sidebar.dart';
+import 'package:wallet/views/SplashScreen.dart';
 
 void main() {
   runApp(MyApp());
@@ -13,8 +12,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: '/homePage',
+      // initialRoute: '/homePage',
       routes: RoutePaths().paths(),
+      home: SplashScreenPage(),
     );
   }
 }

@@ -117,7 +117,7 @@ class _sidebarState extends State<sidebar> with TickerProviderStateMixin {
                   children: [
                     InkWell(
                       onTap: () => {Navigator.pushNamed(context, '/homePage')},
-                      child: navigatorTitle("Início",
+                      child: navigatorTitle("Início ",
                           ModalRoute.of(context).settings.name == '/homePage'),
                     ),
                     InkWell(

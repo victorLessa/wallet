@@ -39,6 +39,8 @@ dependencies:
   web_scraper: ^0.1.4
   share: ^2.0.4
   file_picker: ^4.1.5
+  introduction_screen: ^2.1.0
+  splashscreen: ^1.3.5
 
 dev_dependencies:
   flutter_test:

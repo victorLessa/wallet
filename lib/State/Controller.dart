@@ -243,4 +243,10 @@ class Controller extends GetxController {
       return f.format(percentage - 100) + '%';
     }
   }
+
+  skipIntro() {
+    this.fileContent['skipIntro'] = true;
+    jsonFile.writeAsStringSync(jsonEncode(this.fileContent));
+    update();
+  }
 }
