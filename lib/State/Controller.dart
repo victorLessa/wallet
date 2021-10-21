@@ -15,6 +15,7 @@ class Controller extends GetxController {
   String fileName = "saveUser.json";
   bool fileExists = false;
   bool myFiiLoading = true;
+  bool mySummaryLoading = true;
   var totalPatrimony = '0';
   var totalYield = '0';
   var profitability = '0';
@@ -33,11 +34,12 @@ class Controller extends GetxController {
         var saveUser = jsonDecode(jsonFile.readAsStringSync());
         fileContent = saveUser;
         if (this.fileContent.length > 0) {
+          this.myFiiLoading = true;
           this.stocks = await this.getLastDividends(this.fileContent['stocks']);
+          this.myFiiLoading = false;
           update();
         }
         await this.updateSummary();
-        this.myFiiLoading = false;
         username = saveUser['username'];
         update();
       } else {
@@ -51,15 +53,15 @@ class Controller extends GetxController {
     var importSave = new File(path);
     fileExists = importSave.existsSync();
     if (fileExists) {
-      this.myFiiLoading = true;
       var saveUser = jsonDecode(importSave.readAsStringSync());
       fileContent = saveUser;
       if (this.fileContent.length > 0) {
+        this.myFiiLoading = true;
         this.stocks = await this.getLastDividends(this.fileContent['stocks']);
+        this.myFiiLoading = false;
         update();
       }
       await this.updateSummary();
-      this.myFiiLoading = false;
       username = saveUser['username'];
       jsonFile.writeAsStringSync(jsonEncode(saveUser));
       update();
@@ -75,7 +77,8 @@ class Controller extends GetxController {
     if (this.fileContent != null &&
         this.fileContent.length > 0 &&
         this.fileContent['stocks'].length > 0) {
-      this.myFiiLoading = true;
+      this.mySummaryLoading = true;
+      update();
       var f = NumberFormat("#,##0.00", "pt");
       var total = await this.fethTotalPatrimony(this.fileContent['stocks']);
       var totalYield = this.fetchTotalYield(this.fileContent['stocks']);
@@ -84,7 +87,7 @@ class Controller extends GetxController {
       this.totalPatrimony = f.format(total);
       this.totalYield = f.format(totalYield);
       this.dY = f.format(this.fetchYield(total, totalYield));
-      this.myFiiLoading = false;
+      this.mySummaryLoading = false;
       update();
     } else {
       var f = NumberFormat("#,##0.00", "pt");

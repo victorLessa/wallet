@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:wallet/Sidebar.dart';
 import 'package:wallet/State/Controller.dart';
 import 'package:wallet/components/CardFii.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:wallet/components/SummaryWallet.dart';
 import 'package:wallet/views/ShowFii.dart';
 
 class HomePage extends StatelessWidget {
@@ -20,12 +20,13 @@ class homePage extends StatefulWidget {
 
 class _homePageState extends State<homePage> {
   final controller = Get.put(Controller());
-
   @override
   void initState() {
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {
-          controller.updateSummary();
-        }));
+    WidgetsBinding.instance.addPostFrameCallback(
+      (_) => setState(() {
+        controller.updateSummary();
+      }),
+    );
     super.initState();
     // TODO: implement initState
   }
@@ -58,118 +59,9 @@ class _homePageState extends State<homePage> {
               ],
             ),
           ),
-          Container(
-            padding:
-                EdgeInsets.only(left: 20, bottom: 20, top: 20.0, right: 30),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Text(
-                  "Resumo da Carteira",
-                  style: TextStyle(
-                      fontSize: 21,
-                      fontWeight: FontWeight.w800,
-                      fontFamily: 'avenir'),
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                Container(
-                  padding: EdgeInsets.all(30),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(10)),
-                    color: Color(0xfff1f3f6),
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            "Rendimento (mês)",
-                            style: TextStyle(
-                                fontSize: 16, fontWeight: FontWeight.w400),
-                          ),
-                          GetBuilder<Controller>(
-                            builder: (_) => Text(
-                              controller.isVisible
-                                  ? "R\$ " + controller.totalYield
-                                  : '****',
-                              style: TextStyle(
-                                  fontSize: 22, fontWeight: FontWeight.w700),
-                            ),
-                          ),
-                          SizedBox(
-                            height: 20,
-                          ),
-                          Text(
-                            "DY (mês)",
-                            style: TextStyle(
-                                fontSize: 16, fontWeight: FontWeight.w400),
-                          ),
-                          GetBuilder<Controller>(
-                            builder: (_) => Text(
-                              controller.isVisible ? controller.dY : '****',
-                              style: TextStyle(
-                                  fontSize: 22, fontWeight: FontWeight.w700),
-                            ),
-                          ),
-                        ],
-                      ),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            "Valor Investido",
-                            style: TextStyle(
-                                fontSize: 16, fontWeight: FontWeight.w400),
-                          ),
-                          GetBuilder<Controller>(
-                            builder: (_) => Container(
-                              child: Text(
-                                controller.isVisible
-                                    ? "R\$ " + controller.totalPatrimony
-                                    : '****',
-                                style: TextStyle(
-                                    fontSize: 22, fontWeight: FontWeight.w700),
-                              ),
-                            ),
-                          ),
-                          SizedBox(height: 20),
-                          Text(
-                            "Rentabilidade",
-                            style: TextStyle(
-                                fontSize: 16, fontWeight: FontWeight.w400),
-                          ),
-                          Row(
-                            children: [
-                              GetBuilder<Controller>(
-                                builder: (_) => Text(
-                                  controller.isVisible
-                                      ? controller.profitability
-                                      : '****',
-                                  style: TextStyle(
-                                      fontSize: 22,
-                                      fontWeight: FontWeight.w700),
-                                ),
-                              ),
-                              SizedBox(
-                                width: 5.0,
-                              ),
-                              Text('Semana')
-                            ],
-                          )
-                        ],
-                      )
-                    ],
-                  ),
-                ),
-              ],
-            ),
+          GetBuilder<Controller>(
+            builder: (_) =>
+                summaryWallet(controller, controller.mySummaryLoading),
           ),
           Expanded(
             child: Container(
@@ -194,11 +86,7 @@ class _homePageState extends State<homePage> {
                   Expanded(
                     child: GetBuilder<Controller>(
                       builder: (controller) => controller.myFiiLoading
-                          ? Center(
-                              child: SpinKitFadingCircle(
-                                color: Colors.blueGrey,
-                              ),
-                            )
+                          ? Center(child: CircularProgressIndicator())
                           : Container(
                               height: 300.0,
                               child: ListView.builder(

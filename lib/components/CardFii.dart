@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:jiffy/jiffy.dart';
+import 'package:wallet/components/HiddenValue.dart';
 
 double number(String string) {
   return double.parse(string);
@@ -47,9 +48,9 @@ Widget cardFii(stock, isVisible) {
                 height: 10,
               ),
               Text(
-                isVisible ? "Rendimento: R\$ $dividend" : '****',
+                "Rendimento: R\$ $dividend",
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
-              ),
+              )
             ],
           ),
         ),
@@ -58,9 +59,20 @@ Widget cardFii(stock, isVisible) {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
-            Text(
-              isVisible ? "R\$ $total" : '****',
-              style: TextStyle(fontSize: 22, fontWeight: FontWeight.w700),
+            Container(
+              height: 20.0,
+              width: 85.0,
+              alignment: Alignment.center,
+              child: isVisible
+                  ? Text(
+                      "R\$ $total",
+                      style:
+                          TextStyle(fontSize: 22, fontWeight: FontWeight.w700),
+                    )
+                  : hiddenValue(),
+            ),
+            SizedBox(
+              height: 5.0,
             ),
             Container(
               padding: EdgeInsets.only(

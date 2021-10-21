@@ -7,6 +7,7 @@ import 'package:wallet/Service/StatusInvestApi.dart';
 import 'package:wallet/Sidebar.dart';
 import 'package:wallet/State/Controller.dart';
 import 'package:wallet/components/Dialog.dart';
+import 'package:wallet/components/HiddenValue.dart';
 import 'package:wallet/views/EditFii.dart';
 
 class ShowFii extends StatefulWidget {
@@ -43,7 +44,7 @@ class _ShowFiiState extends State<ShowFii> {
       body: Column(
         children: [
           Container(
-            padding: EdgeInsets.only(top: 30, left: 20, bottom: 0, right: 30),
+            padding: EdgeInsets.only(top: 30, left: 20, bottom: 0, right: 10),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -85,11 +86,11 @@ class _ShowFiiState extends State<ShowFii> {
                       icon: Icon(
                         Icons.edit,
                         color: Colors.blueGrey,
-                        size: 30.0,
+                        size: 20.0,
                       ),
                     ),
                     SizedBox(
-                      width: 10.0,
+                      width: 20.0,
                     ),
                     IconButton(
                       onPressed: () async {
@@ -108,7 +109,7 @@ class _ShowFiiState extends State<ShowFii> {
                       },
                       icon: isLoadingTrash
                           ? CircularProgressIndicator()
-                          : Icon(Icons.delete, color: Colors.red, size: 30.0),
+                          : Icon(Icons.delete, color: Colors.red, size: 20.0),
                     )
                   ],
                 )
@@ -150,43 +151,60 @@ class _ShowFiiState extends State<ShowFii> {
                             style: TextStyle(
                                 fontSize: 16, fontWeight: FontWeight.w400),
                           ),
-                          GetBuilder<Controller>(
-                            builder: (_) => Text(
-                              controller.isVisible
-                                  ? "R\$ " + widget.stock['price']
-                                  : '****',
-                              style: TextStyle(
-                                  fontSize: 22, fontWeight: FontWeight.w700),
+                          Container(
+                            height: 20.0,
+                            child: GetBuilder<Controller>(
+                              builder: (_) => controller.isVisible
+                                  ? Text(
+                                      "R\$ " + widget.stock['price'],
+                                      style: TextStyle(
+                                          fontSize: 22,
+                                          fontWeight: FontWeight.w700),
+                                    )
+                                  : hiddenValue(),
                             ),
                           ),
                           SizedBox(
                             height: 20,
                           ),
-                          Text(
-                            "DY (12 meses)",
-                            style: TextStyle(
-                                fontSize: 16, fontWeight: FontWeight.w400),
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: [
+                              Text(
+                                "DY",
+                                style: TextStyle(
+                                    fontSize: 16, fontWeight: FontWeight.w400),
+                              ),
+                              Text(
+                                "(12 meses)",
+                                style: TextStyle(
+                                    fontSize: 12, fontWeight: FontWeight.w400),
+                              ),
+                            ],
                           ),
-                          FutureBuilder(
-                            future:
-                                StatusInvestApi().fetchDy(widget.stock['url']),
-                            builder:
-                                (BuildContext context, AsyncSnapshot snapshot) {
-                              if (!snapshot.hasData) {
-                                return Text('Carregando...');
-                              } else {
-                                return GetBuilder<Controller>(
-                                  builder: (_) => Text(
-                                    controller.isVisible
-                                        ? snapshot.data + '%'
-                                        : '****',
-                                    style: TextStyle(
-                                        fontSize: 22,
-                                        fontWeight: FontWeight.w700),
-                                  ),
-                                );
-                              }
-                            },
+                          Container(
+                            height: 20,
+                            child: FutureBuilder(
+                              future: StatusInvestApi()
+                                  .fetchDy(widget.stock['url']),
+                              builder: (BuildContext context,
+                                  AsyncSnapshot snapshot) {
+                                if (!snapshot.hasData) {
+                                  return Text('Carregando...');
+                                } else {
+                                  return GetBuilder<Controller>(
+                                    builder: (_) => controller.isVisible
+                                        ? Text(
+                                            snapshot.data + '%',
+                                            style: TextStyle(
+                                                fontSize: 22,
+                                                fontWeight: FontWeight.w700),
+                                          )
+                                        : hiddenValue(),
+                                  );
+                                }
+                              },
+                            ),
                           )
                         ],
                       ),
@@ -199,14 +217,18 @@ class _ShowFiiState extends State<ShowFii> {
                             style: TextStyle(
                                 fontSize: 16, fontWeight: FontWeight.w400),
                           ),
-                          GetBuilder<Controller>(
-                            builder: (_) => Container(
-                              child: Text(
-                                controller.isVisible
-                                    ? "R\$ " + this.valueApplied()
-                                    : '****',
-                                style: TextStyle(
-                                    fontSize: 22, fontWeight: FontWeight.w700),
+                          Container(
+                            height: 20.0,
+                            child: GetBuilder<Controller>(
+                              builder: (_) => Container(
+                                child: controller.isVisible
+                                    ? Text(
+                                        "R\$ " + this.valueApplied(),
+                                        style: TextStyle(
+                                            fontSize: 22,
+                                            fontWeight: FontWeight.w700),
+                                      )
+                                    : hiddenValue(),
                               ),
                             ),
                           ),
@@ -216,19 +238,18 @@ class _ShowFiiState extends State<ShowFii> {
                             style: TextStyle(
                                 fontSize: 16, fontWeight: FontWeight.w400),
                           ),
-                          Row(
-                            children: [
-                              GetBuilder<Controller>(
-                                builder: (_) => Text(
-                                  controller.isVisible
-                                      ? widget.stock['quantityStock']
-                                      : '****',
-                                  style: TextStyle(
-                                      fontSize: 22,
-                                      fontWeight: FontWeight.w700),
-                                ),
-                              ),
-                            ],
+                          Container(
+                            height: 20.0,
+                            child: GetBuilder<Controller>(
+                              builder: (_) => controller.isVisible
+                                  ? Text(
+                                      widget.stock['quantityStock'],
+                                      style: TextStyle(
+                                          fontSize: 22,
+                                          fontWeight: FontWeight.w700),
+                                    )
+                                  : hiddenValue(),
+                            ),
                           )
                         ],
                       )

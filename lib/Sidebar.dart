@@ -117,7 +117,7 @@ class _sidebarState extends State<sidebar> with TickerProviderStateMixin {
                   children: [
                     InkWell(
                       onTap: () => {Navigator.pushNamed(context, '/homePage')},
-                      child: navigatorTitle("Home",
+                      child: navigatorTitle("Início",
                           ModalRoute.of(context).settings.name == '/homePage'),
                     ),
                     InkWell(
@@ -201,31 +201,35 @@ class _sidebarState extends State<sidebar> with TickerProviderStateMixin {
           Positioned(
             right: 10,
             top: 20,
-            child: Row(
-              children: [
-                GetBuilder<Controller>(
-                  builder: (_) => yeyVisibility(controller),
-                ),
-                (sideBarActive)
-                    ? IconButton(
-                        padding: EdgeInsets.all(20),
-                        onPressed: closeSideBar,
-                        icon: Icon(
-                          Icons.close,
-                          color: Colors.blueGrey,
-                          size: 40,
+            child: Container(
+              padding: EdgeInsets.only(top: 15),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  GetBuilder<Controller>(
+                    builder: (_) => yeyVisibility(controller),
+                  ),
+                  SizedBox(width: 20.0),
+                  (sideBarActive)
+                      ? IconButton(
+                          onPressed: closeSideBar,
+                          icon: Icon(
+                            Icons.close,
+                            color: Colors.blueGrey,
+                            size: 30,
+                          ),
+                        )
+                      : IconButton(
+                          onPressed: openSideBar,
+                          icon: Icon(
+                            Icons.menu,
+                            color: Colors.blueGrey,
+                            size: 30,
+                          ),
                         ),
-                      )
-                    : IconButton(
-                        padding: EdgeInsets.all(20),
-                        onPressed: openSideBar,
-                        icon: Icon(
-                          Icons.menu,
-                          color: Colors.blueGrey,
-                          size: 40,
-                        ),
-                      ),
-              ],
+                ],
+              ),
             ),
           )
         ],

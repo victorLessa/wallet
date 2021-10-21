@@ -72,7 +72,7 @@ class _EditFiiState extends State<EditFii> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "Adicione um ativo.",
+                    "Atualizar ativo: " + widget.stock['code'],
                     style: TextStyle(
                         fontSize: 21,
                         fontWeight: FontWeight.w800,

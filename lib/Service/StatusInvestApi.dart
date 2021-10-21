@@ -13,10 +13,9 @@ class StatusInvestApi {
     return response;
   }
 
-  searchStock(ticket) async {
+  Future<List> searchStock(ticket) async {
     var response = await this.get('$searchTicker?q=$ticket&country=');
-    return response.data;
-    // .map((key, value) => value["nameFormated"]);
+    return response.data.where((element) => element['type'] == 2).toList();
   }
 
   Future searchLastDividend(String ticker) async {
