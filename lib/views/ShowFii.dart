@@ -306,7 +306,6 @@ class _ShowFiiState extends State<ShowFii> {
                                   contentPadding: EdgeInsets.all(0),
                                   title: Container(
                                     padding: EdgeInsets.all(15),
-                                    margin: EdgeInsets.only(bottom: 5),
                                     decoration: BoxDecoration(
                                       borderRadius:
                                           BorderRadius.all(Radius.circular(10)),

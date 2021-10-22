@@ -52,7 +52,6 @@ class _QuotesState extends State<Quotes> {
           ),
           Expanded(
             child: Container(
-              padding: EdgeInsets.all(20),
               child: FutureBuilder(
                 future: StatusInvestApi().fetchQuotes(controller.stocks),
                 builder: (BuildContext context, AsyncSnapshot snapshot) {
@@ -72,7 +71,6 @@ class _QuotesState extends State<Quotes> {
                               .replaceAll(',', '.'),
                         );
                         return ListTile(
-                          contentPadding: EdgeInsets.all(0),
                           title: Container(
                             padding: EdgeInsets.all(30),
                             decoration: BoxDecoration(
