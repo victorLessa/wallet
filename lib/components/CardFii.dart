@@ -24,8 +24,7 @@ Widget cardFii(stock, isVisible) {
   }
 
   return Container(
-    padding: EdgeInsets.all(30),
-    margin: EdgeInsets.only(bottom: 10),
+    padding: EdgeInsets.all(20),
     decoration: BoxDecoration(
       borderRadius: BorderRadius.all(Radius.circular(10)),
       color: Color(0xfff1f3f6),
@@ -67,7 +66,7 @@ Widget cardFii(stock, isVisible) {
                   ? Text(
                       "R\$ $total",
                       style:
-                          TextStyle(fontSize: 22, fontWeight: FontWeight.w700),
+                          TextStyle(fontSize: 22, fontWeight: FontWeight.w600),
                     )
                   : hiddenValue(),
             ),

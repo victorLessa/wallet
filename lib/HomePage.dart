@@ -51,6 +51,7 @@ class _homePageState extends State<homePage> {
     return Scaffold(
       backgroundColor: Colors.white,
       body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Container(
             padding: EdgeInsets.only(top: 30, left: 20, bottom: 0, right: 30),
@@ -81,7 +82,7 @@ class _homePageState extends State<homePage> {
           ),
           Expanded(
             child: Container(
-              padding: EdgeInsets.only(left: 20, bottom: 20, right: 30),
+              padding: EdgeInsets.only(left: 20, bottom: 20, right: 20),
               child: Column(
                 children: [
                   Row(

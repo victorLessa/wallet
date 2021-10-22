@@ -6,7 +6,7 @@ import 'package:wallet/components/HiddenValue.dart';
 
 Widget summaryWallet(Controller controller, bool isLoadingSummary) {
   return Container(
-    padding: EdgeInsets.only(left: 20, bottom: 20, top: 20.0, right: 30),
+    padding: EdgeInsets.all(20),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
@@ -104,7 +104,6 @@ Widget summaryWallet(Controller controller, bool isLoadingSummary) {
                           children: [
                             Container(
                               height: 20.0,
-                              width: 120.0,
                               alignment: Alignment.centerLeft,
                               child: GetBuilder<Controller>(
                                 builder: (_) => controller.isVisible
@@ -126,6 +125,7 @@ Widget summaryWallet(Controller controller, bool isLoadingSummary) {
                               fontSize: 16, fontWeight: FontWeight.w400),
                         ),
                         Row(
+                          crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
                             Container(
                               height: 20.0,

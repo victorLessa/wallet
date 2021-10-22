@@ -49,4 +49,16 @@ class StatusInvestApi {
     }
     return '0';
   }
+
+  Future fetchQuotes(stocks) async {
+    List result = [];
+    for (var stock in stocks) {
+      var ticker = stock['code'];
+      var response = await this.get('$searchTicker?q=$ticker');
+      stock['variation'] = response.data[0]['variation'];
+      result.add(stock);
+    }
+
+    return result;
+  }
 }
