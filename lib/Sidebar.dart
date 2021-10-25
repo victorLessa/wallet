@@ -1,4 +1,5 @@
 import 'package:file_picker/file_picker.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:share/share.dart';
@@ -26,12 +27,38 @@ class sidebar extends StatefulWidget {
 class _sidebarState extends State<sidebar> with TickerProviderStateMixin {
   bool sideBarActive = false;
   AnimationController rotationController;
+
+  AdSize adSize = AdSize(width: 300, height: 50);
+  BannerAdListener listener = BannerAdListener(
+    // Called when an ad is successfully received.
+    onAdLoaded: (Ad ad) => print('Ad loaded.'),
+    // Called when an ad request failed.
+    onAdFailedToLoad: (Ad ad, LoadAdError error) {
+      // Dispose the ad here to free resources.
+      ad.dispose();
+      print('Ad failed to load: $error');
+    },
+    // Called when an ad opens an overlay that covers the screen.
+    onAdOpened: (Ad ad) => print('Ad opened.'),
+    // Called when an ad removes an overlay that covers the screen.
+    onAdClosed: (Ad ad) => print('Ad closed.'),
+    // Called when an impression occurs on the ad.
+    onAdImpression: (Ad ad) => print('Ad impression.'),
+  );
+  BannerAd myBanner;
   @override
   void initState() {
     // TODO: implement initState
 
     rotationController =
         AnimationController(duration: Duration(milliseconds: 200), vsync: this);
+    myBanner = BannerAd(
+      adUnitId: 'ca-app-pub-8315151818484833/7832416735',
+      size: AdSize.banner,
+      request: AdRequest(),
+      listener: BannerAdListener(),
+    );
+    myBanner.load();
     super.initState();
   }
 
@@ -235,6 +262,14 @@ class _sidebarState extends State<sidebar> with TickerProviderStateMixin {
                         ),
                 ],
               ),
+            ),
+          ),
+          Positioned(
+            bottom: 0,
+            child: Container(
+              width: myBanner.size.width.toDouble(),
+              height: myBanner.size.height.toDouble(),
+              child: AdWidget(ad: this.myBanner),
             ),
           )
         ],

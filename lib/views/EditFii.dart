@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 import 'package:wallet/State/Controller.dart';
 import 'package:wallet/components/Dialog.dart';
+import 'package:wallet/components/Header.dart';
 
 class EditFii extends StatefulWidget {
   final stock;
@@ -39,32 +40,8 @@ class _EditFiiState extends State<EditFii> {
         backgroundColor: Colors.white,
         body: Column(
           children: [
-            Container(
-              padding:
-                  EdgeInsets.only(top: 30, left: 20, bottom: 10, right: 30),
-              child: Row(
-                children: [
-                  Container(
-                    width: 50,
-                    height: 50,
-                    decoration: BoxDecoration(
-                        image: DecorationImage(
-                      image: AssetImage('asset/images/logo.png'),
-                    )),
-                  ),
-                  SizedBox(
-                    width: 5,
-                  ),
-                  Text(
-                    "eWalle",
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontFamily: 'ubuntu',
-                        fontSize: 25),
-                  )
-                ],
-              ),
-            ),
+            header(),
+            SizedBox(height: 10.0),
             Expanded(
                 child: SingleChildScrollView(
               padding: EdgeInsets.all(20.0),

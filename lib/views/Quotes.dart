@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:wallet/Service/StatusInvestApi.dart';
 import 'package:wallet/State/Controller.dart';
+import 'package:wallet/components/Header.dart';
 
 class Quotes extends StatefulWidget {
   const Quotes({Key key}) : super(key: key);
@@ -20,29 +21,8 @@ class _QuotesState extends State<Quotes> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          Container(
-            padding: EdgeInsets.only(top: 30, left: 20, bottom: 10, right: 30),
-            child: Row(
-              children: [
-                Container(
-                  width: 50,
-                  height: 50,
-                  decoration: BoxDecoration(
-                      image: DecorationImage(
-                    image: AssetImage('asset/images/logo.png'),
-                  )),
-                ),
-                SizedBox(
-                  width: 5,
-                ),
-                Text(
-                  "eWalle",
-                  style: TextStyle(
-                      color: Colors.black, fontFamily: 'ubuntu', fontSize: 25),
-                )
-              ],
-            ),
-          ),
+          header(),
+          SizedBox(height: 10.0),
           Text(
             'Suas Cotações',
             style: TextStyle(

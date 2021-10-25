@@ -5,10 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:get/get.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:wallet/Sidebar.dart';
 import 'package:wallet/State/Controller.dart';
 import 'package:wallet/components/AskName.dart';
 import 'package:wallet/components/CardFii.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:wallet/components/Header.dart';
 import 'package:wallet/components/SummaryWallet.dart';
 import 'package:wallet/views/ShowFii.dart';
 
@@ -53,29 +54,7 @@ class _homePageState extends State<homePage> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Container(
-            padding: EdgeInsets.only(top: 30, left: 20, bottom: 0, right: 30),
-            child: Row(
-              children: [
-                Container(
-                  width: 50,
-                  height: 50,
-                  decoration: BoxDecoration(
-                      image: DecorationImage(
-                    image: AssetImage('asset/images/logo.png'),
-                  )),
-                ),
-                SizedBox(
-                  width: 5,
-                ),
-                Text(
-                  "eWalle",
-                  style: TextStyle(
-                      color: Colors.black, fontFamily: 'ubuntu', fontSize: 25),
-                )
-              ],
-            ),
-          ),
+          header(),
           GetBuilder<Controller>(
             builder: (_) =>
                 summaryWallet(controller, controller.mySummaryLoading),
@@ -116,8 +95,11 @@ class _homePageState extends State<homePage> {
                                       Navigator.push(
                                         context,
                                         MaterialPageRoute(
-                                          builder: (context) => ShowFii(
-                                              stock: controller.stocks[index]),
+                                          builder: (context) => Sidebar(
+                                            component: ShowFii(
+                                                stock:
+                                                    controller.stocks[index]),
+                                          ),
                                         ),
                                       );
                                     },

@@ -1,12 +1,10 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:flutter/scheduler.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:wallet/Service/StatusInvestApi.dart';
-import 'package:wallet/components/AskName.dart';
 
 class Controller extends GetxController {
   var count = 0;
@@ -35,16 +33,21 @@ class Controller extends GetxController {
       if (fileExists) {
         var saveUser = jsonDecode(jsonFile.readAsStringSync());
         fileContent = saveUser;
-        if (this.fileContent.length > 0) {
-          this.myFiiLoading = true;
+        this.myFiiLoading = true;
+        if (this.fileContent != null &&
+            this.fileContent.length > 0 &&
+            this.fileContent['stocks'] != null &&
+            this.fileContent['stocks'].length > 0) {
           this.stocks = await this.getLastDividends(this.fileContent['stocks']);
-          this.myFiiLoading = false;
           update();
         }
+        this.myFiiLoading = false;
+        update();
         await this.updateSummary();
         username = saveUser['username'];
         update();
       } else {
+        this.myFiiLoading = false;
         this.createFile({});
       }
     });
@@ -57,12 +60,13 @@ class Controller extends GetxController {
     if (fileExists) {
       var saveUser = jsonDecode(importSave.readAsStringSync());
       fileContent = saveUser;
+      this.myFiiLoading = true;
       if (this.fileContent.length > 0) {
-        this.myFiiLoading = true;
         this.stocks = await this.getLastDividends(this.fileContent['stocks']);
-        this.myFiiLoading = false;
         update();
       }
+      this.myFiiLoading = false;
+      update();
       await this.updateSummary();
       username = saveUser['username'];
       jsonFile.writeAsStringSync(jsonEncode(saveUser));
@@ -76,10 +80,11 @@ class Controller extends GetxController {
   }
 
   Future updateSummary() async {
+    this.mySummaryLoading = true;
     if (this.fileContent != null &&
         this.fileContent.length > 0 &&
+        this.fileContent['stocks'] != null &&
         this.fileContent['stocks'].length > 0) {
-      this.mySummaryLoading = true;
       update();
       var f = NumberFormat("#,##0.00", "pt");
       var total = await this.fethTotalPatrimony(this.fileContent['stocks']);
@@ -89,7 +94,6 @@ class Controller extends GetxController {
       this.totalPatrimony = f.format(total);
       this.totalYield = f.format(totalYield);
       this.dY = f.format(this.fetchYield(total, totalYield));
-      this.mySummaryLoading = false;
       update();
     } else {
       var f = NumberFormat("#,##0.00", "pt");
@@ -99,6 +103,8 @@ class Controller extends GetxController {
       this.profitability = f.format(0) + '%';
       update();
     }
+    this.mySummaryLoading = false;
+    update();
   }
 
   Future<List> getLastDividends(stocks) async {

@@ -7,8 +7,10 @@ import 'package:wallet/Service/StatusInvestApi.dart';
 import 'package:wallet/Sidebar.dart';
 import 'package:wallet/State/Controller.dart';
 import 'package:wallet/components/Dialog.dart';
+import 'package:wallet/components/Header.dart';
 import 'package:wallet/components/HiddenValue.dart';
 import 'package:wallet/views/EditFii.dart';
+import 'package:animated_floatactionbuttons/animated_floatactionbuttons.dart';
 
 class ShowFii extends StatefulWidget {
   final stock;
@@ -37,88 +39,63 @@ class _ShowFiiState extends State<ShowFii> {
     return f.format(total);
   }
 
+  Widget floatDelete() {
+    return Container(
+      child: FloatingActionButton(
+        heroTag: "btn2",
+        onPressed: () async {
+          try {
+            setState(() {
+              this.isLoadingTrash = true;
+            });
+            await controller.removeStock(widget.stock['id']);
+            setState(() {
+              this.isLoadingTrash = false;
+            });
+            Navigator.of(context).pop();
+          } catch (e) {
+            dialog(e, context);
+          }
+        },
+        backgroundColor: Colors.red,
+        tooltip: 'First button',
+        child: isLoadingTrash
+            ? SizedBox(
+                height: 24.0, width: 24.0, child: CircularProgressIndicator())
+            : Icon(Icons.delete),
+      ),
+    );
+  }
+
+  Widget floatEdit() {
+    return Container(
+      child: FloatingActionButton(
+        heroTag: "btn1",
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => Sidebar(
+                component: EditFii(stock: widget.stock),
+              ),
+            ),
+          );
+        },
+        tooltip: 'Second button',
+        child: Icon(Icons.edit),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
       body: Column(
         children: [
+          header(),
           Container(
-            padding: EdgeInsets.only(top: 30, left: 20, bottom: 0, right: 10),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Row(
-                  children: [
-                    Container(
-                      width: 50,
-                      height: 50,
-                      decoration: BoxDecoration(
-                          image: DecorationImage(
-                        image: AssetImage('asset/images/logo.png'),
-                      )),
-                    ),
-                    SizedBox(
-                      width: 5,
-                    ),
-                    Text(
-                      "eWalle",
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontFamily: 'ubuntu',
-                          fontSize: 25),
-                    )
-                  ],
-                ),
-                Row(
-                  children: [
-                    IconButton(
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => Sidebar(
-                              component: EditFii(stock: widget.stock),
-                            ),
-                          ),
-                        );
-                      },
-                      icon: Icon(
-                        Icons.edit,
-                        color: Colors.blueGrey,
-                        size: 20.0,
-                      ),
-                    ),
-                    SizedBox(
-                      width: 20.0,
-                    ),
-                    IconButton(
-                      onPressed: () async {
-                        try {
-                          setState(() {
-                            this.isLoadingTrash = true;
-                          });
-                          await controller.removeStock(widget.stock['id']);
-                          setState(() {
-                            this.isLoadingTrash = false;
-                          });
-                          Navigator.of(context).pop();
-                        } catch (e) {
-                          dialog(e, context);
-                        }
-                      },
-                      icon: isLoadingTrash
-                          ? CircularProgressIndicator()
-                          : Icon(Icons.delete, color: Colors.red, size: 20.0),
-                    )
-                  ],
-                )
-              ],
-            ),
-          ),
-          Container(
-            padding:
-                EdgeInsets.only(left: 20, bottom: 20, top: 20.0, right: 30),
+            padding: EdgeInsets.all(20),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -261,7 +238,7 @@ class _ShowFiiState extends State<ShowFii> {
           ),
           Expanded(
             child: Container(
-              padding: EdgeInsets.only(left: 20, bottom: 20, right: 30),
+              padding: EdgeInsets.only(left: 20, bottom: 20, right: 20),
               child: Column(
                 children: [
                   Row(
@@ -340,6 +317,13 @@ class _ShowFiiState extends State<ShowFii> {
           ),
         ],
       ),
+      floatingActionButton: AnimatedFloatingActionButton(
+          //Fab list
+          fabButtons: <Widget>[floatDelete(), floatEdit()],
+          colorStartAnimation: Colors.blue,
+          colorEndAnimation: Colors.blue,
+          animatedIconData: AnimatedIcons.menu_close //To principal button
+          ),
     );
   }
 }

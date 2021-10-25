@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "388466884198",
+    "project_id": "meus-fundos-imobiliarios",
+    "storage_bucket": "meus-fundos-imobiliarios.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:388466884198:android:15d84712296561caa077a7",
+        "android_client_info": {
+          "package_name": "com.company.myfii"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "388466884198-3d4ucrs63msqj31qe79f3qtvmg9mj2c8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA9_NUE-vGhZ0JSGwXNl-Hcr7Biarqz3-4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "388466884198-3d4ucrs63msqj31qe79f3qtvmg9mj2c8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

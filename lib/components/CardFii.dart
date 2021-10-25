@@ -77,25 +77,25 @@ Widget cardFii(stock, isVisible) {
               padding: EdgeInsets.only(
                   bottom: 5.0, top: 5.0, left: 10.0, right: 10.0),
               decoration: BoxDecoration(
-                  color: difference != null && difference < 0
+                  color: difference != null && difference <= 0
                       ? Colors.green
                       : Colors.transparent,
                   borderRadius: BorderRadius.all(Radius.circular(10.0)),
                   border: Border.all(
                       width: 2.0,
-                      color: difference != null && difference < 0
+                      color: difference != null && difference <= 0
                           ? Colors.green
                           : Colors.black38)),
               child: Text(
                 difference != null
-                    ? difference < 0
+                    ? difference <= 0
                         ? 'Recebeu'
                         : "daqui $difference dias"
                     : 'Sem divulgação',
                 style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w400,
-                    color: difference != null && difference < 0
+                    color: difference != null && difference <= 0
                         ? Colors.white
                         : difference == null
                             ? Colors.black38
