@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:wallet/Service/StatusInvestApi.dart';
-import 'package:wallet/State/Controller.dart';
-import 'package:wallet/components/Header.dart';
+import 'package:fiinance/Service/StatusInvestApi.dart';
+import 'package:fiinance/State/Controller.dart';
+import 'package:fiinance/components/Header.dart';
 
 class Quotes extends StatefulWidget {
   const Quotes({Key key}) : super(key: key);

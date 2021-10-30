@@ -2,25 +2,28 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:jiffy/jiffy.dart';
-import 'package:wallet/components/HiddenValue.dart';
+import 'package:fiinance/components/HiddenValue.dart';
 
 double number(String string) {
   return double.parse(string);
 }
 
 Widget cardFii(stock, isVisible) {
-  var date = Jiffy(stock['dividends']['pd'], "dd/MM/yyyy");
   var total = '0';
-  var dividend = '0,00';
-  int difference;
-  if (date.month == Jiffy().month) {
-    var value = stock['dividends']['v'];
+  var dividendValue = '0,00';
+  int difference = 0;
+  for (var dividend in stock['dividends']) {
+    var date = Jiffy(dividend['pd'], 'dd/MM/yyyy');
+    if (date.year == Jiffy().year && date.month == Jiffy().month) {
+      var value = dividend['v'];
 
-    var f = NumberFormat("#,##0.00", "pt");
-    dividend = f.format(value);
-    total = f.format(double.parse(stock['quantityStock']) * value);
-    difference =
-        DateTime.parse(date.format()).difference(DateTime.now()).inDays;
+      var f = NumberFormat("#,##0.00", "pt");
+      dividendValue = f.format(value);
+      total = f.format(double.parse(stock['quantityStock']) * value);
+      var inDays =
+          DateTime.parse(date.format()).difference(DateTime.now()).inDays;
+      if (inDays > 0) difference = inDays;
+    }
   }
 
   return Container(
@@ -47,7 +50,7 @@ Widget cardFii(stock, isVisible) {
                 height: 10,
               ),
               Text(
-                "Rendimento: R\$ $dividend",
+                "Rendimento: R\$ $dividendValue",
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
               )
             ],
@@ -60,8 +63,7 @@ Widget cardFii(stock, isVisible) {
           children: [
             Container(
               height: 20.0,
-              width: 85.0,
-              alignment: Alignment.center,
+              alignment: Alignment.centerRight,
               child: isVisible
                   ? Text(
                       "R\$ $total",

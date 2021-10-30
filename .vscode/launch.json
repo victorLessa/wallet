@@ -5,12 +5,12 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "wallet-fi",
+      "name": "fiinance",
       "request": "launch",
       "type": "dart"
     },
     {
-      "name": "wallet-fi (profile mode)",
+      "name": "fiinance-fi (profile mode)",
       "request": "launch",
       "type": "dart",
       "flutterMode": "profile"

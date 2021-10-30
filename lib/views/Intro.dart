@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:introduction_screen/introduction_screen.dart';
-import 'package:wallet/State/Controller.dart';
+import 'package:fiinance/State/Controller.dart';
 
 class Intro extends StatefulWidget {
   const Intro({Key key}) : super(key: key);
@@ -22,8 +22,9 @@ class _IntroState extends State<Intro> {
           title: "Saiba quando irá receber seus proventos",
           body:
               "Fique informado sobre a data de pagamentos de outras informações importantes sobre seus Fundos Imobiliários.",
-          image: const Center(
-            child: Icon(Icons.android),
+          image: Image.asset(
+            'asset/images/addStock.gif',
+            width: 500.0,
           ),
         ),
         PageViewModel(

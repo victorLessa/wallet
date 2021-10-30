@@ -5,9 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
-import 'package:wallet/State/Controller.dart';
-import 'package:wallet/components/Dialog.dart';
-import 'package:wallet/components/Header.dart';
+import 'package:fiinance/State/Controller.dart';
+import 'package:fiinance/components/Dialog.dart';
+import 'package:fiinance/components/Header.dart';
 
 class EditFii extends StatefulWidget {
   final stock;

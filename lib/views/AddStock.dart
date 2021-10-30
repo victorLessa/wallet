@@ -6,9 +6,9 @@ import 'package:flutter/services.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:get/get.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
-import 'package:wallet/Service/StatusInvestApi.dart';
-import 'package:wallet/State/Controller.dart';
-import 'package:wallet/components/Header.dart';
+import 'package:fiinance/Service/StatusInvestApi.dart';
+import 'package:fiinance/State/Controller.dart';
+import 'package:fiinance/components/Header.dart';
 
 class AddStock extends StatefulWidget {
   const AddStock({Key key}) : super(key: key);

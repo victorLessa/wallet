@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.wallet">
+    package="com.example.fiinance">
     <uses-permission android:name="android.permission.INTERNET" />
     <!-- io.flutter.app.FlutterApplication is an android.app.Application that
          calls FlutterMain.startInitialization(this); in its onCreate method.
@@ -8,11 +8,11 @@
          FlutterApplication and put your custom class here. -->
     <application
         android:name="io.flutter.app.FlutterApplication"
-        android:label="wallet"
+        android:label="fiinance"
         android:icon="@mipmap/ic_launcher">
                 <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-8315151818484833~7284803582"/>
+            android:value="ca-app-pub-4878335794859830~5063062405"/>
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"

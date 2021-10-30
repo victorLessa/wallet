@@ -11,7 +11,7 @@ Widget header() {
           height: 50,
           alignment: Alignment.centerLeft,
           child: Text(
-            "Meus FII's",
+            "FIInances",
             style: TextStyle(
                 color: Colors.black, fontFamily: 'ubuntu', fontSize: 25),
           ),

@@ -3,10 +3,10 @@ import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:share/share.dart';
-import 'package:wallet/State/Controller.dart';
-import 'package:wallet/components/AskName.dart';
-import 'package:wallet/components/Dialog.dart';
-import 'package:wallet/components/YeyVisibility.dart';
+import 'package:fiinance/State/Controller.dart';
+import 'package:fiinance/components/AskName.dart';
+import 'package:fiinance/components/Dialog.dart';
+import 'package:fiinance/components/YeyVisibility.dart';
 
 class Sidebar extends StatelessWidget {
   final component;

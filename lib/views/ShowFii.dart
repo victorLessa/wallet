@@ -3,13 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:wallet/Service/StatusInvestApi.dart';
-import 'package:wallet/Sidebar.dart';
-import 'package:wallet/State/Controller.dart';
-import 'package:wallet/components/Dialog.dart';
-import 'package:wallet/components/Header.dart';
-import 'package:wallet/components/HiddenValue.dart';
-import 'package:wallet/views/EditFii.dart';
+import 'package:fiinance/Service/StatusInvestApi.dart';
+import 'package:fiinance/Sidebar.dart';
+import 'package:fiinance/State/Controller.dart';
+import 'package:fiinance/components/Dialog.dart';
+import 'package:fiinance/components/Header.dart';
+import 'package:fiinance/components/HiddenValue.dart';
+import 'package:fiinance/views/EditFii.dart';
 import 'package:animated_floatactionbuttons/animated_floatactionbuttons.dart';
 
 class ShowFii extends StatefulWidget {

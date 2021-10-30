@@ -3,8 +3,9 @@ import 'dart:io';
 
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:jiffy/jiffy.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:wallet/Service/StatusInvestApi.dart';
+import 'package:fiinance/Service/StatusInvestApi.dart';
 
 class Controller extends GetxController {
   var count = 0;
@@ -20,7 +21,7 @@ class Controller extends GetxController {
   var totalYield = '0';
   var profitability = '0';
   var dY = '0';
-  var fileContent;
+  Map fileContent;
   var currentDy = '';
   bool isVisible = true;
 
@@ -111,7 +112,7 @@ class Controller extends GetxController {
     List result = [];
     for (var stock in stocks) {
       var response = await StatusInvestApi().lastDividends(stock['code']);
-      stock['dividends'] = response.data['assetEarningsModels'][0];
+      stock['dividends'] = response.data['assetEarningsModels'];
       result.add(stock);
     }
 
@@ -151,7 +152,7 @@ class Controller extends GetxController {
     this.stocks.add(data);
     var saveUser = jsonDecode(jsonFile.readAsStringSync());
     saveUser['stocks'] = this.stocks;
-    this.fileContent['stocks'] = this.stocks;
+    this.fileContent = saveUser;
     jsonFile.writeAsStringSync(jsonEncode(saveUser));
     update();
   }
@@ -198,9 +199,13 @@ class Controller extends GetxController {
   double fetchTotalYield(stocks) {
     double total = 0;
     for (var stock in stocks) {
-      total += stock['dividends']['v'] * double.parse(stock['quantityStock']);
+      for (var dividend in stock['dividends']) {
+        var date = Jiffy(dividend['pd'], 'dd/MM/yyyy');
+        if (date.year == Jiffy().year && date.month == Jiffy().month) {
+          total += dividend['v'] * double.parse(stock['quantityStock']);
+        }
+      }
     }
-
     return total;
   }
 

@@ -7,13 +7,13 @@ Widget yeyVisibility(controller) {
             controller.visibility(!controller.isVisible);
           },
           icon:
-              Icon(Icons.visibility_outlined, size: 20, color: Colors.blueGrey),
+              Icon(Icons.visibility_outlined, size: 25, color: Colors.blueGrey),
         )
       : IconButton(
           onPressed: () {
             controller.visibility(!controller.isVisible);
           },
           icon: Icon(Icons.visibility_off_outlined,
-              size: 20, color: Colors.blueGrey),
+              size: 25, color: Colors.blueGrey),
         );
 }

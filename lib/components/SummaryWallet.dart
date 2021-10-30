@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:wallet/State/Controller.dart';
-import 'package:wallet/components/HiddenValue.dart';
+import 'package:fiinance/State/Controller.dart';
+import 'package:fiinance/components/HiddenValue.dart';
 
-Widget summaryWallet(Controller controller, bool isLoadingSummary) {
+Widget summaryfiinance(Controller controller, bool isLoadingSummary) {
   return Container(
     padding: EdgeInsets.all(20),
     child: Column(
