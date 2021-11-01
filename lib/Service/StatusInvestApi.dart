@@ -21,7 +21,7 @@ class StatusInvestApi {
   Future searchLastDividend(String ticker) async {
     var response = await this.get(
         'https://statusinvest.com.br/acao/companytickerprovents?ticker=$ticker&chartProventsType=0');
-    return response.data['assetEarningsModels'][0];
+    return response.data['assetEarningsModels'];
   }
 
   Future lastDividends(ticket) async {

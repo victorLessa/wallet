@@ -12,11 +12,12 @@ Widget cardFii(stock, isVisible) {
   var total = '0';
   var dividendValue = '0,00';
   int difference = 0;
+  bool currentMonth = false;
   for (var dividend in stock['dividends']) {
     var date = Jiffy(dividend['pd'], 'dd/MM/yyyy');
     if (date.year == Jiffy().year && date.month == Jiffy().month) {
       var value = dividend['v'];
-
+      currentMonth = true;
       var f = NumberFormat("#,##0.00", "pt");
       dividendValue = f.format(value);
       total = f.format(double.parse(stock['quantityStock']) * value);
@@ -79,17 +80,17 @@ Widget cardFii(stock, isVisible) {
               padding: EdgeInsets.only(
                   bottom: 5.0, top: 5.0, left: 10.0, right: 10.0),
               decoration: BoxDecoration(
-                  color: difference != null && difference <= 0
+                  color: currentMonth && difference <= 0
                       ? Colors.green
                       : Colors.transparent,
                   borderRadius: BorderRadius.all(Radius.circular(10.0)),
                   border: Border.all(
                       width: 2.0,
-                      color: difference != null && difference <= 0
+                      color: currentMonth && difference <= 0
                           ? Colors.green
                           : Colors.black38)),
               child: Text(
-                difference != null
+                currentMonth
                     ? difference <= 0
                         ? 'Recebeu'
                         : "daqui $difference dias"
@@ -97,7 +98,7 @@ Widget cardFii(stock, isVisible) {
                 style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w400,
-                    color: difference != null && difference <= 0
+                    color: currentMonth && difference <= 0
                         ? Colors.white
                         : difference == null
                             ? Colors.black38
