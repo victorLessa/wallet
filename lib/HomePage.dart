@@ -5,13 +5,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:get/get.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:fiinance/Sidebar.dart';
-import 'package:fiinance/State/Controller.dart';
-import 'package:fiinance/components/AskName.dart';
-import 'package:fiinance/components/CardFii.dart';
-import 'package:fiinance/components/Header.dart';
-import 'package:fiinance/components/SummaryWallet.dart';
-import 'package:fiinance/views/ShowFii.dart';
+import 'package:Fiinance/Sidebar.dart';
+import 'package:Fiinance/State/Controller.dart';
+import 'package:Fiinance/components/AskName.dart';
+import 'package:Fiinance/components/CardFii.dart';
+import 'package:Fiinance/components/Header.dart';
+import 'package:Fiinance/components/SummaryWallet.dart';
+import 'package:Fiinance/views/ShowFii.dart';
 
 class HomePage extends StatelessWidget {
   @override
@@ -57,7 +57,7 @@ class _homePageState extends State<homePage> {
           header(),
           GetBuilder<Controller>(
             builder: (_) =>
-                summaryfiinance(controller, controller.mySummaryLoading),
+                summaryFiinance(controller, controller.mySummaryLoading),
           ),
           Expanded(
             child: Container(

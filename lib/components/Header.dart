@@ -10,10 +10,8 @@ Widget header() {
           width: 150,
           height: 50,
           alignment: Alignment.centerLeft,
-          child: Text(
-            "FIInances",
-            style: TextStyle(
-                color: Colors.black, fontFamily: 'ubuntu', fontSize: 25),
+          child: Image.asset(
+            'asset/images/LogoFII.png',
           ),
         ),
       ],

@@ -1,4 +1,4 @@
-# e-fiinance app
+# e-Fiinance app
 
 A new Flutter application.
 
@@ -6,7 +6,7 @@ A new Flutter application.
 
 Tutorial url : https://youtu.be/NZti_NZLXis
 
-image credits : https://www.uplabs.com/posts/ewalle-portable-fiinance
+image credits : https://www.uplabs.com/posts/ewalle-portable-Fiinance
 
 ## Author
 

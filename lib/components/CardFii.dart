@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:jiffy/jiffy.dart';
-import 'package:fiinance/components/HiddenValue.dart';
+import 'package:Fiinance/components/HiddenValue.dart';
 
 double number(String string) {
   return double.parse(string);
@@ -81,13 +81,13 @@ Widget cardFii(stock, isVisible) {
                   bottom: 5.0, top: 5.0, left: 10.0, right: 10.0),
               decoration: BoxDecoration(
                   color: currentMonth && difference <= 0
-                      ? Colors.green
+                      ? Color.fromRGBO(57, 181, 74, 1)
                       : Colors.transparent,
                   borderRadius: BorderRadius.all(Radius.circular(10.0)),
                   border: Border.all(
                       width: 2.0,
                       color: currentMonth && difference <= 0
-                          ? Colors.green
+                          ? Color.fromRGBO(57, 181, 74, 1)
                           : Colors.black38)),
               child: Text(
                 currentMonth

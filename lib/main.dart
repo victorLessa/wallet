@@ -1,7 +1,7 @@
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:flutter/material.dart';
-import 'package:fiinance/routes/Paths.dart';
-import 'package:fiinance/views/SplashScreen.dart';
+import 'package:Fiinance/routes/Paths.dart';
+import 'package:Fiinance/views/SplashScreen.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();

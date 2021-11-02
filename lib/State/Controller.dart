@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:jiffy/jiffy.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:fiinance/Service/StatusInvestApi.dart';
+import 'package:Fiinance/Service/StatusInvestApi.dart';
 
 class Controller extends GetxController {
   var count = 0;

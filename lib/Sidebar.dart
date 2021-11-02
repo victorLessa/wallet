@@ -3,10 +3,10 @@ import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:share/share.dart';
-import 'package:fiinance/State/Controller.dart';
-import 'package:fiinance/components/AskName.dart';
-import 'package:fiinance/components/Dialog.dart';
-import 'package:fiinance/components/YeyVisibility.dart';
+import 'package:Fiinance/State/Controller.dart';
+import 'package:Fiinance/components/AskName.dart';
+import 'package:Fiinance/components/Dialog.dart';
+import 'package:Fiinance/components/YeyVisibility.dart';
 
 class Sidebar extends StatelessWidget {
   final component;
@@ -139,6 +139,7 @@ class _sidebarState extends State<sidebar> with TickerProviderStateMixin {
                 ],
               ),
               Expanded(
+                  child: SingleChildScrollView(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
@@ -191,7 +192,7 @@ class _sidebarState extends State<sidebar> with TickerProviderStateMixin {
                     )
                   ],
                 ),
-              ),
+              )),
               Container(
                 alignment: Alignment.bottomLeft,
                 padding: EdgeInsets.all(20),
@@ -284,7 +285,7 @@ class _sidebarState extends State<sidebar> with TickerProviderStateMixin {
             ? Container(
                 width: 5,
                 height: 60,
-                color: Color(0xffffac30),
+                color: Color.fromRGBO(57, 181, 74, 1),
               )
             : Container(
                 width: 5,

@@ -1,7 +1,7 @@
-import 'package:fiinance/HomePage.dart';
-import 'package:fiinance/Sidebar.dart';
-import 'package:fiinance/views/AddStock.dart';
-import 'package:fiinance/views/Quotes.dart';
+import 'package:Fiinance/HomePage.dart';
+import 'package:Fiinance/Sidebar.dart';
+import 'package:Fiinance/views/AddStock.dart';
+import 'package:Fiinance/views/Quotes.dart';
 
 class RoutePaths {
   paths() {

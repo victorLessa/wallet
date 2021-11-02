@@ -5,12 +5,12 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "fiinance",
+      "name": "Fiinance",
       "request": "launch",
       "type": "dart"
     },
     {
-      "name": "fiinance-fi (profile mode)",
+      "name": "Fiinance-fi (profile mode)",
       "request": "launch",
       "type": "dart",
       "flutterMode": "profile"

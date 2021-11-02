@@ -1,13 +1,9 @@
-import 'dart:convert';
-import 'dart:io';
-
-import 'package:fiinance/HomePage.dart';
-import 'package:fiinance/Sidebar.dart';
-import 'package:fiinance/State/Controller.dart';
+import 'package:Fiinance/HomePage.dart';
+import 'package:Fiinance/Sidebar.dart';
+import 'package:Fiinance/State/Controller.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:splashscreen/splashscreen.dart';
 
 class SplashScreenPage extends StatefulWidget {
@@ -28,19 +24,31 @@ class _SplashScreenPageState extends State<SplashScreenPage> {
 
   @override
   Widget build(BuildContext context) {
-    return SplashScreen(
-      seconds: 6,
-      navigateAfterFuture:
-          Future.delayed(Duration(seconds: 4), () => loadFromFuture()),
-      title: new Text(
-        'Bem vindo ao FIInances',
-        style: new TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0),
+    return Scaffold(
+      body: Stack(
+        children: <Widget>[
+          SplashScreen(
+            navigateAfterFuture:
+                Future.delayed(Duration(seconds: 4), () => loadFromFuture()),
+            styleTextUnderTheLoader: new TextStyle(),
+            photoSize: 150.0,
+            useLoader: false,
+          ),
+          Center(
+            child: Container(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Image.asset(
+                    'asset/images/LogoSplashScreen.png',
+                    width: 200.0,
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
       ),
-      image: new Image.network('https://i.imgur.com/TyCSG9A.png'),
-      backgroundColor: Colors.white,
-      styleTextUnderTheLoader: new TextStyle(),
-      photoSize: 100.0,
-      useLoader: false,
     );
   }
 }

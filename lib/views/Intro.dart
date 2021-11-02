@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:introduction_screen/introduction_screen.dart';
-import 'package:fiinance/State/Controller.dart';
+import 'package:Fiinance/State/Controller.dart';
 
 class Intro extends StatefulWidget {
   const Intro({Key key}) : super(key: key);

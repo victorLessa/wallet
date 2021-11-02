@@ -3,13 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:fiinance/Service/StatusInvestApi.dart';
-import 'package:fiinance/Sidebar.dart';
-import 'package:fiinance/State/Controller.dart';
-import 'package:fiinance/components/Dialog.dart';
-import 'package:fiinance/components/Header.dart';
-import 'package:fiinance/components/HiddenValue.dart';
-import 'package:fiinance/views/EditFii.dart';
+import 'package:Fiinance/Service/StatusInvestApi.dart';
+import 'package:Fiinance/Sidebar.dart';
+import 'package:Fiinance/State/Controller.dart';
+import 'package:Fiinance/components/Dialog.dart';
+import 'package:Fiinance/components/Header.dart';
+import 'package:Fiinance/components/HiddenValue.dart';
+import 'package:Fiinance/views/EditFii.dart';
 import 'package:animated_floatactionbuttons/animated_floatactionbuttons.dart';
 
 class ShowFii extends StatefulWidget {
@@ -320,8 +320,8 @@ class _ShowFiiState extends State<ShowFii> {
       floatingActionButton: AnimatedFloatingActionButton(
           //Fab list
           fabButtons: <Widget>[floatDelete(), floatEdit()],
-          colorStartAnimation: Colors.blue,
-          colorEndAnimation: Colors.blue,
+          colorStartAnimation: Color.fromRGBO(57, 181, 74, 1),
+          colorEndAnimation: Color.fromRGBO(57, 181, 74, 1),
           animatedIconData: AnimatedIcons.menu_close //To principal button
           ),
     );
