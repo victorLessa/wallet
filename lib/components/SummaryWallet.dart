@@ -33,7 +33,6 @@ Widget summaryFiinance(Controller controller, bool isLoadingSummary) {
           height: 10,
         ),
         Container(
-          height: 160.0,
           width: double.infinity,
           padding: EdgeInsets.all(30),
           decoration: BoxDecoration(
@@ -55,18 +54,15 @@ Widget summaryFiinance(Controller controller, bool isLoadingSummary) {
                           style: TextStyle(
                               fontSize: 16, fontWeight: FontWeight.w400),
                         ),
-                        Container(
-                          height: 20.0,
-                          child: GetBuilder<Controller>(
-                            builder: (_) => controller.isVisible
-                                ? Text(
-                                    "R\$ " + controller.totalYield,
-                                    style: TextStyle(
-                                        fontSize: 22,
-                                        fontWeight: FontWeight.w700),
-                                  )
-                                : hiddenValue(),
-                          ),
+                        GetBuilder<Controller>(
+                          builder: (_) => controller.isVisible
+                              ? Text(
+                                  "R\$ " + controller.totalYield,
+                                  style: TextStyle(
+                                      fontSize: 22,
+                                      fontWeight: FontWeight.w700),
+                                )
+                              : hiddenValue(),
                         ),
                         SizedBox(
                           height: 20,
@@ -76,19 +72,16 @@ Widget summaryFiinance(Controller controller, bool isLoadingSummary) {
                           style: TextStyle(
                               fontSize: 16, fontWeight: FontWeight.w400),
                         ),
-                        Container(
-                          height: 20.0,
-                          child: GetBuilder<Controller>(
-                            builder: (_) => controller.isVisible
-                                ? Text(
-                                    controller.dY + '%',
-                                    style: TextStyle(
-                                        fontSize: 22,
-                                        fontWeight: FontWeight.w700),
-                                  )
-                                : hiddenValue(),
-                          ),
-                        )
+                        GetBuilder<Controller>(
+                          builder: (_) => controller.isVisible
+                              ? Text(
+                                  controller.dY + '%',
+                                  style: TextStyle(
+                                      fontSize: 22,
+                                      fontWeight: FontWeight.w700),
+                                )
+                              : hiddenValue(),
+                        ),
                       ],
                     ),
                     Column(
@@ -102,20 +95,16 @@ Widget summaryFiinance(Controller controller, bool isLoadingSummary) {
                         ),
                         Wrap(
                           children: [
-                            Container(
-                              height: 20.0,
-                              alignment: Alignment.centerLeft,
-                              child: GetBuilder<Controller>(
-                                builder: (_) => controller.isVisible
-                                    ? Text(
-                                        "R\$ " + controller.totalPatrimony,
-                                        style: TextStyle(
-                                            fontSize: 22,
-                                            fontWeight: FontWeight.w700),
-                                      )
-                                    : hiddenValue(),
-                              ),
-                            )
+                            GetBuilder<Controller>(
+                              builder: (_) => controller.isVisible
+                                  ? Text(
+                                      "R\$ " + controller.totalPatrimony,
+                                      style: TextStyle(
+                                          fontSize: 22,
+                                          fontWeight: FontWeight.w700),
+                                    )
+                                  : hiddenValue(),
+                            ),
                           ],
                         ),
                         SizedBox(height: 20),
@@ -127,18 +116,15 @@ Widget summaryFiinance(Controller controller, bool isLoadingSummary) {
                         Row(
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
-                            Container(
-                              height: 20.0,
-                              child: GetBuilder<Controller>(
-                                builder: (_) => controller.isVisible
-                                    ? Text(
-                                        controller.profitability,
-                                        style: TextStyle(
-                                            fontSize: 22,
-                                            fontWeight: FontWeight.w700),
-                                      )
-                                    : hiddenValue(),
-                              ),
+                            GetBuilder<Controller>(
+                              builder: (_) => controller.isVisible
+                                  ? Text(
+                                      controller.profitability,
+                                      style: TextStyle(
+                                          fontSize: 22,
+                                          fontWeight: FontWeight.w700),
+                                    )
+                                  : hiddenValue(),
                             ),
                             SizedBox(
                               width: 5.0,

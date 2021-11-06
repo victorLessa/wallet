@@ -7,7 +7,7 @@ Widget header() {
     child: Row(
       children: [
         Container(
-          width: 130,
+          width: 120,
           height: 50,
           alignment: Alignment.centerLeft,
           child: Image.asset(

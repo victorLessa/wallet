@@ -58,55 +58,52 @@ Widget cardFii(stock, isVisible) {
           ),
         ),
         Expanded(
-            child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: [
-            Container(
-              height: 20.0,
-              alignment: Alignment.centerRight,
-              child: isVisible
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              isVisible
                   ? Text(
                       "R\$ $total",
                       style:
                           TextStyle(fontSize: 22, fontWeight: FontWeight.w600),
                     )
                   : hiddenValue(),
-            ),
-            SizedBox(
-              height: 5.0,
-            ),
-            Container(
-              padding: EdgeInsets.only(
-                  bottom: 5.0, top: 5.0, left: 10.0, right: 10.0),
-              decoration: BoxDecoration(
-                  color: currentMonth && difference <= 0
-                      ? Color.fromRGBO(57, 181, 74, 1)
-                      : Colors.transparent,
-                  borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                  border: Border.all(
-                      width: 2.0,
-                      color: currentMonth && difference <= 0
-                          ? Color.fromRGBO(57, 181, 74, 1)
-                          : Colors.black38)),
-              child: Text(
-                currentMonth
-                    ? difference <= 0
-                        ? 'Recebeu'
-                        : "daqui $difference dias"
-                    : 'Sem divulgação',
-                style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w400,
-                    color: currentMonth && difference <= 0
-                        ? Colors.white
-                        : difference == null
-                            ? Colors.black38
-                            : Colors.black),
+              SizedBox(
+                height: 5.0,
               ),
-            )
-          ],
-        ))
+              Container(
+                padding: EdgeInsets.only(
+                    bottom: 5.0, top: 5.0, left: 10.0, right: 10.0),
+                decoration: BoxDecoration(
+                    color: currentMonth && difference <= 0
+                        ? Color.fromRGBO(57, 181, 74, 1)
+                        : Colors.transparent,
+                    borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                    border: Border.all(
+                        width: 2.0,
+                        color: currentMonth && difference <= 0
+                            ? Color.fromRGBO(57, 181, 74, 1)
+                            : Colors.black38)),
+                child: Text(
+                  currentMonth
+                      ? difference <= 0
+                          ? 'Recebeu'
+                          : "daqui $difference dias"
+                      : 'Sem divulgação',
+                  style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w400,
+                      color: currentMonth && difference <= 0
+                          ? Colors.white
+                          : difference == null
+                              ? Colors.black38
+                              : Colors.black),
+                ),
+              )
+            ],
+          ),
+        )
       ],
     ),
   );

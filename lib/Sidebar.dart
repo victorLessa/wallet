@@ -53,7 +53,7 @@ class _sidebarState extends State<sidebar> with TickerProviderStateMixin {
     rotationController =
         AnimationController(duration: Duration(milliseconds: 200), vsync: this);
     myBanner = BannerAd(
-      adUnitId: 'ca-app-pub-8315151818484833/7832416735',
+      adUnitId: 'ca-app-pub-4878335794859830/6678222948',
       size: AdSize.banner,
       request: AdRequest(),
       listener: BannerAdListener(),
@@ -197,7 +197,7 @@ class _sidebarState extends State<sidebar> with TickerProviderStateMixin {
                 alignment: Alignment.bottomLeft,
                 padding: EdgeInsets.all(20),
                 child: Text(
-                  "Ver 0.0.1 alfa",
+                  "Versão 1.0.0",
                   style: TextStyle(color: Colors.grey),
                 ),
               )

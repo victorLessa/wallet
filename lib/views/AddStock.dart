@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:Fiinance/controller/AddStock.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -61,9 +62,11 @@ class _AddStockState extends State<AddStock> {
                   TextField(
                       keyboardType: TextInputType.number,
                       decoration: InputDecoration(
-                          labelText: 'Quantidade de Ativos',
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10.0))),
+                        labelText: 'Quantidade de Ativos',
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10.0),
+                        ),
+                      ),
                       controller: quantityStockController,
                       inputFormatters: [
                         FilteringTextInputFormatter.digitsOnly
@@ -79,13 +82,30 @@ class _AddStockState extends State<AddStock> {
                       onPressed: () async {
                         this.formData['quantityStock'] =
                             quantityStockController.text;
-
-                        bool has = await controller.submitStock(this.formData);
-                        if (has) {
-                          dialog('Ativo já faz parte da sua carteira.');
+                        this.formData["code"] = typeAheadFieldController.text;
+                        if (this.formData['code'].length == 6) {
+                          bool isFii = await AddStockController.isFii(
+                              this.formData['code']);
+                          if (isFii) {
+                            bool has =
+                                await controller.submitStock(this.formData);
+                            if (has) {
+                              dialog('Ativo já faz parte da sua carteira.',
+                                  'warning');
+                            } else {
+                              dialog(
+                                  "Ativo adicionado a sua carteira com sucesso.",
+                                  'success');
+                            }
+                          } else {
+                            dialog(
+                                "Favor selecione um Fundo Imobiliários válido.",
+                                'error');
+                          }
                         } else {
                           dialog(
-                              "Ativo adicionado a sua carteira com sucesso.");
+                              "Favor selecione um Fundo Imobiliários válido.",
+                              'error');
                         }
                         _btnController.success();
                         Timer(Duration(seconds: 1), () {
@@ -128,13 +148,39 @@ class _AddStockState extends State<AddStock> {
     );
   }
 
-  void dialog(String text) {
+  Widget renderIcon(icon, color) {
+    return CircleAvatar(
+      maxRadius: 30.0,
+      backgroundColor: Colors.black12,
+      child: Icon(icon, color: color, size: 40.0),
+    );
+  }
+
+  wrapIconDialog(String type) {
+    switch (type) {
+      case 'error':
+        return this.renderIcon(Icons.error, Colors.red);
+        break;
+      case 'success':
+        return this.renderIcon(Icons.check, Colors.green);
+        break;
+      case 'warning':
+        return this.renderIcon(Icons.warning, Colors.orange);
+        break;
+      default:
+        return this.renderIcon(Icons.check, Colors.green);
+        break;
+    }
+  }
+
+  void dialog(String text, type) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
         // retorna um objeto do tipo Dialog
         return AlertDialog(
-          title: Text(text, textAlign: TextAlign.center),
+          title: this.wrapIconDialog(type),
+          content: Text(text, textAlign: TextAlign.center),
           actions: [
             SizedBox(
                 width: double.maxFinite,

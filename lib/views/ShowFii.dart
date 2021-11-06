@@ -128,18 +128,15 @@ class _ShowFiiState extends State<ShowFii> {
                             style: TextStyle(
                                 fontSize: 16, fontWeight: FontWeight.w400),
                           ),
-                          Container(
-                            height: 20.0,
-                            child: GetBuilder<Controller>(
-                              builder: (_) => controller.isVisible
-                                  ? Text(
-                                      "R\$ " + widget.stock['price'],
-                                      style: TextStyle(
-                                          fontSize: 22,
-                                          fontWeight: FontWeight.w700),
-                                    )
-                                  : hiddenValue(),
-                            ),
+                          GetBuilder<Controller>(
+                            builder: (_) => controller.isVisible
+                                ? Text(
+                                    "R\$ " + widget.stock['price'],
+                                    style: TextStyle(
+                                        fontSize: 22,
+                                        fontWeight: FontWeight.w700),
+                                  )
+                                : hiddenValue(),
                           ),
                           SizedBox(
                             height: 20,
@@ -159,30 +156,27 @@ class _ShowFiiState extends State<ShowFii> {
                               ),
                             ],
                           ),
-                          Container(
-                            height: 20,
-                            child: FutureBuilder(
-                              future: StatusInvestApi()
-                                  .fetchDy(widget.stock['url']),
-                              builder: (BuildContext context,
-                                  AsyncSnapshot snapshot) {
-                                if (!snapshot.hasData) {
-                                  return Text('Carregando...');
-                                } else {
-                                  return GetBuilder<Controller>(
-                                    builder: (_) => controller.isVisible
-                                        ? Text(
-                                            snapshot.data + '%',
-                                            style: TextStyle(
-                                                fontSize: 22,
-                                                fontWeight: FontWeight.w700),
-                                          )
-                                        : hiddenValue(),
-                                  );
-                                }
-                              },
-                            ),
-                          )
+                          FutureBuilder(
+                            future:
+                                StatusInvestApi().fetchDy(widget.stock['url']),
+                            builder:
+                                (BuildContext context, AsyncSnapshot snapshot) {
+                              if (!snapshot.hasData) {
+                                return Text('Carregando...');
+                              } else {
+                                return GetBuilder<Controller>(
+                                  builder: (_) => controller.isVisible
+                                      ? Text(
+                                          snapshot.data + '%',
+                                          style: TextStyle(
+                                              fontSize: 22,
+                                              fontWeight: FontWeight.w700),
+                                        )
+                                      : hiddenValue(),
+                                );
+                              }
+                            },
+                          ),
                         ],
                       ),
                       Column(
@@ -194,19 +188,16 @@ class _ShowFiiState extends State<ShowFii> {
                             style: TextStyle(
                                 fontSize: 16, fontWeight: FontWeight.w400),
                           ),
-                          Container(
-                            height: 20.0,
-                            child: GetBuilder<Controller>(
-                              builder: (_) => Container(
-                                child: controller.isVisible
-                                    ? Text(
-                                        "R\$ " + this.valueApplied(),
-                                        style: TextStyle(
-                                            fontSize: 22,
-                                            fontWeight: FontWeight.w700),
-                                      )
-                                    : hiddenValue(),
-                              ),
+                          GetBuilder<Controller>(
+                            builder: (_) => Container(
+                              child: controller.isVisible
+                                  ? Text(
+                                      "R\$ " + this.valueApplied(),
+                                      style: TextStyle(
+                                          fontSize: 22,
+                                          fontWeight: FontWeight.w700),
+                                    )
+                                  : hiddenValue(),
                             ),
                           ),
                           SizedBox(height: 20),
@@ -215,19 +206,16 @@ class _ShowFiiState extends State<ShowFii> {
                             style: TextStyle(
                                 fontSize: 16, fontWeight: FontWeight.w400),
                           ),
-                          Container(
-                            height: 20.0,
-                            child: GetBuilder<Controller>(
-                              builder: (_) => controller.isVisible
-                                  ? Text(
-                                      widget.stock['quantityStock'],
-                                      style: TextStyle(
-                                          fontSize: 22,
-                                          fontWeight: FontWeight.w700),
-                                    )
-                                  : hiddenValue(),
-                            ),
-                          )
+                          GetBuilder<Controller>(
+                            builder: (_) => controller.isVisible
+                                ? Text(
+                                    widget.stock['quantityStock'],
+                                    style: TextStyle(
+                                        fontSize: 22,
+                                        fontWeight: FontWeight.w700),
+                                  )
+                                : hiddenValue(),
+                          ),
                         ],
                       )
                     ],
